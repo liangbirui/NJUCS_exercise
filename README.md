@@ -2,7 +2,9 @@
 
 NJUCS配套的刷题软件
 
-文字处理采用ＨＴＭＬ格式文本
+文字处理采用HTML格式文本
+
+使用最长句子MD5值进行重复判断
 
 ## 功能
 
@@ -71,6 +73,8 @@ Git: 2.23.0
 # 参考资料
 
 [1].https://github.com/chankeh/cpp-backend-reference
+
+[2].
 
 # Version
 
