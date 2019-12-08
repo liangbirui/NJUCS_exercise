@@ -9,7 +9,10 @@ Insert::Insert(QWidget *parent) :
     this->setWindowTitle(tr("Insertion"));
     ui->stackedWidget->setCurrentIndex(0);
 
-    loadConfig();
+    //加载配置文件
+    Json jsonConfig;
+    dbPath =jsonConfig.getValue("db");
+    theme = jsonConfig.getValue("theme");
 
     this->setStyleSheet(theme);
     db_ptr=new Database("insert",dbPath);
@@ -27,35 +30,6 @@ Insert::~Insert()
     delete ui;
 }
 
-void Insert::loadConfig()
-{
-    QString jsonFilePath = QDir::currentPath() + QDir::separator() + "config.json";
-    qDebug()<<"Json file path is: "<<jsonFilePath;
-    QFile jsonFile(jsonFilePath);
-    if(!jsonFile.exists()){
-        qDebug()<<"App configuration json file do not exists";
-        return;
-    }
-    if(!jsonFile.open(QIODevice::ReadOnly)){
-        qDebug()<<"Couldn't open project configuration json file";
-        return;
-    }
-    QByteArray allData = jsonFile.readAll();
-    jsonFile.close();
-    QJsonParseError json_error;
-    QJsonDocument jsonDoc(QJsonDocument::fromJson(allData,&json_error));
-    if(json_error.error !=QJsonParseError::NoError){
-        qDebug()<<"json error: "<<json_error.errorString();
-        return;
-    }
-    QJsonObject rootObj = jsonDoc.object();
-
-    dbPath = rootObj.value("db").toString();
-    theme = rootObj.value("theme").toString();
-
-    qDebug()<<"dbPath is: "<<dbPath<<" \nsrc path is: "<<theme;
-}
-
 void Insert::display(QString title, QString content)
 {
     this->setWindowTitle(title);
@@ -65,6 +39,7 @@ void Insert::display(QString title, QString content)
 
 void Insert::operation(int id)
 {
+    ui->stackedWidget->setCurrentIndex(0);
     ui->opLineId->setText(QString::number(id));
 
     m_sql = QString("select * from data where id= %1").arg(id);
@@ -80,11 +55,14 @@ void Insert::operation(int id)
         qDebug()<<"Cannot query detail from data table :"<<db_ptr->ptr_query->lastError();
     }
 
-    m_sql = QString("select cata from property where id=%1").arg(id);
+    m_sql = QString("select * from property where id=%1").arg(id);
     db_ptr->ptr_query->prepare(m_sql);
     if(db_ptr->ptr_query->exec()){
         while(db_ptr->ptr_query->next()){
             ui->opPlainCata->setPlainText(db_ptr->ptr_query->value("cata").toString());
+            ui->opComboType->setCurrentText(db_ptr->ptr_query->value("type").toString());
+            ui->opComboLevel->setCurrentText(db_ptr->ptr_query->value("level").toString());
+            ui->opComboSubject->setCurrentText(db_ptr->ptr_query->value("subject").toString());
         }
     }
     else {
@@ -125,7 +103,7 @@ void Insert::on_opButtonUpdate_clicked()
         QMessageBox::information(this,tr("Update"),QString("Cannot update data into db: %1").arg(db_ptr->ptr_query->lastError().text())
                                  ,QMessageBox::Ok);
     }
-
+    on_opButtonClose_clicked();
 }
 
 void Insert::on_opButtonInsert_clicked()

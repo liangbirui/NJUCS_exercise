@@ -11,10 +11,12 @@
 #include <QWebView>
 #include <QtWebKit/QtWebKit>
 #include <QMainWindow>
+#include <QCloseEvent>
 
 #include "insert.h"
 #include "database.hpp"
 #include "export.h"
+#include "json.hpp"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -28,9 +30,10 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-    void loadConfig();
-
     bool displayDetailById(int id);
+
+protected:
+    void closeEvent(QCloseEvent *event);
 
 private slots:
     void on_actionExit_triggered();

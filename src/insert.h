@@ -6,6 +6,7 @@
 #include <QMessageBox>
 
 #include "database.hpp"
+#include "json.hpp"
 
 namespace Ui {
 class Insert;
@@ -19,7 +20,6 @@ public:
     explicit Insert(QWidget *parent = nullptr);
     ~Insert();
 
-    void loadConfig();
     void display(QString title,QString content);
     void operation(int id);
 

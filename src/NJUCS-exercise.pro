@@ -20,6 +20,7 @@ HEADERS += \
     database.hpp \
     export.h \
     insert.h \
+    json.hpp \
     mainwindow.h \
     md5.hpp \
     similarity.hpp

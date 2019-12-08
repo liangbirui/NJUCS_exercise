@@ -19,11 +19,6 @@
 #include <QString>
 #include <QDebug>
 #include <QFile>
-#include <QJsonArray>
-#include <QJsonDocument>
-#include <QJsonObject>
-#include <QJsonParseError>
-#include <QJsonValue>
 
 class Database{
 public:

@@ -7,7 +7,14 @@ MainWindow::MainWindow(QWidget *parent)
     , iw_ptr(new Insert())
 {
     ui->setupUi(this);
-    loadConfig();
+
+    //加载配置文件
+    Json jsonConfig;
+    dbPath =jsonConfig.getValue("db");
+    theme = jsonConfig.getValue("theme");
+    currentId = jsonConfig.getValue("id").toInt();
+
+    qDebug()<<"dbPath is: "<<dbPath<<" \nsrc path is: "<<theme;
 
     this->setStyleSheet(theme);
     db_ptr = new Database("main",dbPath);
@@ -26,36 +33,6 @@ MainWindow::~MainWindow()
     delete m_export;
     delete db_ptr;
     delete ui;
-}
-
-void MainWindow::loadConfig()
-{
-    QString jsonFilePath = QDir::currentPath() + QDir::separator() + "config.json";
-    qDebug()<<"Json file path is: "<<jsonFilePath;
-    QFile jsonFile(jsonFilePath);
-    if(!jsonFile.exists()){
-        qDebug()<<"App configuration json file do not exists";
-        return;
-    }
-    if(!jsonFile.open(QIODevice::ReadOnly)){
-        qDebug()<<"Couldn't open project configuration json file";
-        return;
-    }
-    QByteArray allData = jsonFile.readAll();
-    jsonFile.close();
-    QJsonParseError json_error;
-    QJsonDocument jsonDoc(QJsonDocument::fromJson(allData,&json_error));
-    if(json_error.error !=QJsonParseError::NoError){
-        qDebug()<<"json error: "<<json_error.errorString();
-        return;
-    }
-    QJsonObject rootObj = jsonDoc.object();
-
-    dbPath = rootObj.value("db").toString();
-    theme = rootObj.value("theme").toString();
-    currentId = rootObj.value("id").toInt();
-
-    qDebug()<<"dbPath is: "<<dbPath<<" \nsrc path is: "<<theme;
 }
 
 bool MainWindow::displayDetailById(int id)
@@ -101,6 +78,13 @@ bool MainWindow::displayDetailById(int id)
     }
 
     return true;
+}
+
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+    Q_UNUSED(event)
+
+
 }
 
 
