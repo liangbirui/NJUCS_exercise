@@ -1,4 +1,5 @@
-QT       += core gui widgets sql webenginewidgets webview webkitwidgets
+QT       += core gui widgets sql
+QT       += webenginewidgets webview webkitwidgets
 
 CONFIG += c++11
 DEFINES += QT_DEPRECATED_WARNINGS
@@ -10,18 +11,21 @@ UI_DIR = tmp/ui
 OBJECTS_DIR = tmp/obj
 
 SOURCES += \
+    export.cpp \
     insert.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
     database.hpp \
+    export.h \
     insert.h \
     mainwindow.h \
     md5.hpp \
     similarity.hpp
 
 FORMS += \
+    export.ui \
     insert.ui \
     mainwindow.ui
 
