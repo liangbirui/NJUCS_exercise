@@ -11,6 +11,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     this->setStyleSheet(theme);
     db_ptr = new Database("main",dbPath);
+    m_export = new Export();
 
     maxId = db_ptr->getMaxId("data");
     ui->lineEditId->setText(QString::number(currentId));
@@ -22,6 +23,7 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete iw_ptr;
+    delete m_export;
     delete db_ptr;
     delete ui;
 }
@@ -219,8 +221,18 @@ void MainWindow::on_actionDelete_triggered()
 
 void MainWindow::on_actionUpdate_triggered()
 {
+    qDebug()<<"Update data in database";
+
     if(currentId<0 || currentId>maxId){
         QMessageBox::information(this,tr("Update"),tr("Invalid id"),QMessageBox::Ok);
         return;
     }
+
+    iw_ptr->operation(currentId);
+    iw_ptr->show();
+}
+
+void MainWindow::on_actionExport_triggered()
+{
+    m_export->show();
 }

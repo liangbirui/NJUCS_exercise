@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QDir>
+#include <QMessageBox>
 
 #include "database.hpp"
 

@@ -71,15 +71,60 @@ void Insert::operation(int id)
     db_ptr->ptr_query->prepare(m_sql);
     if(db_ptr->ptr_query->exec()){
         while(db_ptr->ptr_query->next()){
+            ui->opTextQ->setPlainText(db_ptr->ptr_query->value("question").toString());
+            ui->opTextA->setPlainText(db_ptr->ptr_query->value("answer").toString());
+            ui->opPlainTips->setPlainText(db_ptr->ptr_query->value("tip").toString());
         }
     }
     else {
         qDebug()<<"Cannot query detail from data table :"<<db_ptr->ptr_query->lastError();
     }
+
+    m_sql = QString("select cata from property where id=%1").arg(id);
+    db_ptr->ptr_query->prepare(m_sql);
+    if(db_ptr->ptr_query->exec()){
+        while(db_ptr->ptr_query->next()){
+            ui->opPlainCata->setPlainText(db_ptr->ptr_query->value("cata").toString());
+        }
+    }
+    else {
+        qDebug()<<"Cannot query detail from property table :"<<db_ptr->ptr_query->lastError();
+    }
 }
 
 void Insert::on_opButtonUpdate_clicked()
 {
+    m_sql.clear();
+    m_sql = QString("update data set question=:question,answer=:answer,tip=:tip where id=:id");
+    db_ptr->ptr_query->prepare(m_sql);
+    db_ptr->ptr_query->bindValue(":question",ui->opTextQ->toPlainText());
+    db_ptr->ptr_query->bindValue(":answer",ui->opTextA->toPlainText());
+    db_ptr->ptr_query->bindValue(":tip",ui->opPlainTips->toPlainText());
+    db_ptr->ptr_query->bindValue(":id",ui->opLineId->text().toInt());
+    if(db_ptr->ptr_query->exec()){
+        qDebug()<<"Update data in data table";
+    }
+    else{
+        QMessageBox::information(this,tr("Update"),QString("Cannot update data into db: %1").arg(db_ptr->ptr_query->lastError().text())
+                                 ,QMessageBox::Ok);
+    }
+
+    m_sql = QString("update property set type=:type,subject=:subject,cata=:cata,status=:status,level=:level where id=:id");
+    db_ptr->ptr_query->prepare(m_sql);
+    db_ptr->ptr_query->bindValue(":type",ui->opComboType->currentText());
+    db_ptr->ptr_query->bindValue(":subject",ui->opComboSubject->currentText());
+    db_ptr->ptr_query->bindValue(":cata",ui->opPlainCata->toPlainText());
+    db_ptr->ptr_query->bindValue(":status",0);
+    db_ptr->ptr_query->bindValue(":level",ui->opComboLevel->currentText());
+    db_ptr->ptr_query->bindValue(":id",ui->opLineId->text().toInt());
+    if(db_ptr->ptr_query->exec()){
+        qDebug()<<"Update data in property table";
+        on_opButtonClear_clicked();
+    }
+    else{
+        QMessageBox::information(this,tr("Update"),QString("Cannot update data into db: %1").arg(db_ptr->ptr_query->lastError().text())
+                                 ,QMessageBox::Ok);
+    }
 
 }
 

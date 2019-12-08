@@ -14,6 +14,7 @@
 
 #include "insert.h"
 #include "database.hpp"
+#include "export.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -56,10 +57,13 @@ private slots:
 
     void on_actionUpdate_triggered();
 
+    void on_actionExport_triggered();
+
 private:
     Ui::MainWindow *ui;
     Insert *iw_ptr;
     Database *db_ptr;
+    Export *m_export;
 
     int currentId;
     int maxId;
