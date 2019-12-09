@@ -6,6 +6,8 @@ NJUCS配套的刷题软件
 
 使用最长句子MD5值进行重复判断
 
+因为会有公式，为了保证显示效果，推荐pdf导出
+
 ## 功能
 
 1、题库数据增删改查；
@@ -24,11 +26,25 @@ NJUCS配套的刷题软件
 
 8、正确判断；
 
+# 配置
+
+OS: Manjaro Linux 18.1.1
+
+Qt: 5.13.1
+
+GCC: 9.2.0
+
+C++: C11
+
+SQL: sqlite3
+
+Git: 2.23.0
+
 # TODO
 
 如果data和property表id不一样该如何处理
 
-# 说明
+# 软件使用说明
 
 1、主界面
 
@@ -56,20 +72,6 @@ NJUCS配套的刷题软件
 
 提供十种皮肤
 
-# Specification
-
-OS: Manjaro Linux 18.1.1
-
-Qt: 5.13.1
-
-GCC: 9.2.0
-
-C++: C11
-
-SQL: sqlite3
-
-Git: 2.23.0
-
 # 参考资料
 
 [1].https://github.com/chankeh/cpp-backend-reference
@@ -77,6 +79,12 @@ Git: 2.23.0
 [2].
 
 # Version
+
+## 2019-12-8：
+
+添加数据更新功能
+
+保存退出时的ID
 
 ## 2019-11-29:
 
