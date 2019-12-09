@@ -20,7 +20,6 @@ public:
     explicit Insert(QWidget *parent = nullptr);
     ~Insert();
 
-    void display(QString title,QString content);
     void operation(int id);
 
 private slots:
@@ -30,8 +29,6 @@ private slots:
 
     void on_opButtonClear_clicked();
 
-    void on_displayButtonOk_clicked();
-
     void on_opButtonClose_clicked();
 
 private:
@@ -40,11 +37,10 @@ private:
     Database *db_ptr;
 
     QString m_sql;
-
-    int maxId;
-
     QString dbPath;
     QString theme;
+
+    int maxId;
 };
 
 #endif // INSERT_H

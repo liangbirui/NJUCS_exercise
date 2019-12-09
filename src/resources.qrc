@@ -26,5 +26,6 @@
         <file>resources/icons/delete.svg</file>
         <file>resources/themes/light.qss</file>
         <file>resources/icons/update.svg</file>
+        <file>resources/icons/answer.svg</file>
     </qresource>
 </RCC>

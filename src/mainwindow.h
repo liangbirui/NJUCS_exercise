@@ -32,6 +32,8 @@ public:
 
     bool displayDetailById(int id);
 
+    bool generateList();
+
 protected:
     void closeEvent(QCloseEvent *event);
 
@@ -46,10 +48,6 @@ private slots:
 
     void on_actionInsert_triggered();
 
-    void on_buttonTips_clicked();
-
-    void on_buttonAnswer_clicked();
-
     void on_actionClear_triggered();
 
     void on_actionPrevious_triggered();
@@ -62,18 +60,22 @@ private slots:
 
     void on_actionExport_triggered();
 
+    void on_actionTips_triggered();
+
+    void on_actionAnswer_triggered();
+
 private:
     Ui::MainWindow *ui;
     Insert *iw_ptr;
     Database *db_ptr;
     Export *m_export;
 
-    int currentId;
-    int maxId;
-
+    QString m_webViewCtx;
     QString m_sql;
-
     QString dbPath;
     QString theme;
+
+    int currentId;
+    int maxId;
 };
 #endif // MAINWINDOW_H

@@ -37,12 +37,17 @@ MainWindow::~MainWindow()
 
 bool MainWindow::displayDetailById(int id)
 {
+    m_webViewCtx.clear();
+    m_webViewCtx +="<h2>Question</h1>";
+
     //如果id号溢出则退出
     if(id<0) return false;
     if(id>maxId) return false;
 
+    currentId = id;
+
     //先进行关键词过滤
-    QString filter = ui->plainTextCata->toPlainText();
+    QString filter = ui->lineKeyword->text();
     QString keywords;
     if(!filter.isEmpty()){
         qDebug()<<"Filter data";
@@ -69,8 +74,11 @@ bool MainWindow::displayDetailById(int id)
     db_ptr->ptr_query->prepare(m_sql);
     if(db_ptr->ptr_query->exec()){
         while(db_ptr->ptr_query->next()){
-            ui->webView->setHtml(db_ptr->ptr_query->value("question").toString());
             ui->lineEditId->setText(db_ptr->ptr_query->value("id").toString());
+            QString context = db_ptr->ptr_query->value("question").toString();
+            if(context.isEmpty()) return displayDetailById(++currentId);
+            m_webViewCtx += "<h3>"+context +"</h3>";
+            ui->webView->setHtml(m_webViewCtx);
         }
     }
     else {
@@ -80,13 +88,20 @@ bool MainWindow::displayDetailById(int id)
     return true;
 }
 
+bool MainWindow::generateList()
+{
+    return true;
+}
+
 void MainWindow::closeEvent(QCloseEvent *event)
 {
     Q_UNUSED(event)
 
-
+    QString id = ui->lineEditId->text();
+    Json m_json;
+    m_json.updateValue("id",id);
+    qDebug()<<"Exit now";
 }
-
 
 void MainWindow::on_actionExit_triggered()
 {
@@ -125,40 +140,10 @@ void MainWindow::on_actionInsert_triggered()
     maxId = db_ptr->getMaxId("data");
 }
 
-void MainWindow::on_buttonTips_clicked()
-{
-    QString msg = QString("No tip");
-    m_sql = QString("select tips from data where id = %1").arg(currentId);
-    db_ptr->ptr_query->prepare(m_sql);
-    if(db_ptr->ptr_query->exec()){
-        while(db_ptr->ptr_query->next()){
-            msg = db_ptr->ptr_query->value(0).toString();
-        }
-    }
-
-    iw_ptr->display("Tips",msg);
-    iw_ptr->show();
-}
-
-void MainWindow::on_buttonAnswer_clicked()
-{
-    QString msg = QString("No answer");
-    m_sql = QString("select answer from data where id = %1").arg(currentId);
-    db_ptr->ptr_query->prepare(m_sql);
-    if(db_ptr->ptr_query->exec()){
-        while(db_ptr->ptr_query->next()){
-            msg = db_ptr->ptr_query->value(0).toString();
-        }
-    }
-
-    iw_ptr->display("Answer",msg);
-    iw_ptr->show();
-}
-
 void MainWindow::on_actionClear_triggered()
 {
     ui->webView->setHtml("Please restart app");
-    ui->plainTextCata->clear();
+    ui->lineKeyword->clear();
 }
 
 void MainWindow::on_actionPrevious_triggered()
@@ -219,4 +204,34 @@ void MainWindow::on_actionUpdate_triggered()
 void MainWindow::on_actionExport_triggered()
 {
     m_export->show();
+}
+
+void MainWindow::on_actionTips_triggered()
+{
+    QString msgTip = QString("No tip");
+    m_sql = QString("select tips from data where id = %1").arg(currentId);
+    db_ptr->ptr_query->prepare(m_sql);
+    if(db_ptr->ptr_query->exec()){
+        while(db_ptr->ptr_query->next()){
+            msgTip = db_ptr->ptr_query->value(0).toString();
+        }
+    }
+
+    m_webViewCtx += "<br><h2>Tips</h2><h3>"+msgTip+"</h3>";
+    ui->webView->setHtml(m_webViewCtx);
+}
+
+void MainWindow::on_actionAnswer_triggered()
+{
+    QString msgA = QString("No answer");
+    m_sql = QString("select answer from data where id = %1").arg(currentId);
+    db_ptr->ptr_query->prepare(m_sql);
+    if(db_ptr->ptr_query->exec()){
+        while(db_ptr->ptr_query->next()){
+            msgA = db_ptr->ptr_query->value(0).toString();
+        }
+    }
+
+    m_webViewCtx += "<br><h2>Answer</h2><h3>"+msgA+"</h3>";
+    ui->webView->setHtml(m_webViewCtx);
 }

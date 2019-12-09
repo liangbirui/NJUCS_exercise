@@ -7,7 +7,6 @@ Insert::Insert(QWidget *parent) :
 {
     ui->setupUi(this);
     this->setWindowTitle(tr("Insertion"));
-    ui->stackedWidget->setCurrentIndex(0);
 
     //加载配置文件
     Json jsonConfig;
@@ -30,16 +29,8 @@ Insert::~Insert()
     delete ui;
 }
 
-void Insert::display(QString title, QString content)
-{
-    this->setWindowTitle(title);
-    ui->stackedWidget->setCurrentIndex(1);
-    ui->displayWebview->setHtml(content);
-}
-
 void Insert::operation(int id)
 {
-    ui->stackedWidget->setCurrentIndex(0);
     ui->opLineId->setText(QString::number(id));
 
     m_sql = QString("select * from data where id= %1").arg(id);
@@ -146,11 +137,6 @@ void Insert::on_opButtonClear_clicked()
     ui->opLineId->setText(QString::number(maxId));
 
     qDebug()<<"Clear data done";
-}
-
-void Insert::on_displayButtonOk_clicked()
-{
-    this->close();
 }
 
 void Insert::on_opButtonClose_clicked()

@@ -83,7 +83,6 @@ public:
 
 private:
     QSqlDatabase m_db;
-
 };
 
 #endif // DATABASE_HPP
