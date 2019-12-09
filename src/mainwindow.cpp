@@ -19,16 +19,18 @@ MainWindow::MainWindow(QWidget *parent)
     this->setStyleSheet(theme);
     db_ptr = new Database("main",dbPath);
     m_export = new Export();
+    model = new QStandardItemModel();
 
     maxId = db_ptr->getMaxId("data");
     ui->lineEditId->setText(QString::number(currentId));
     ui->comboBoxSubject->addItems(db_ptr->getListData("subject"));
-
-    displayDetailById(currentId);
+    ui->comboBoxType->addItems(db_ptr->getListData("type"));
+    ui->comboBoxLevel->addItems(db_ptr->getListData("level"));
 }
 
 MainWindow::~MainWindow()
 {
+    delete model;
     delete iw_ptr;
     delete m_export;
     delete db_ptr;
@@ -90,6 +92,42 @@ bool MainWindow::displayDetailById(int id)
 
 bool MainWindow::generateList()
 {
+    model->setColumnCount(1);
+
+    ui->listViewResult->setEditTriggers(QListView::NoEditTriggers);
+
+    m_sql = QString("select id from property where subject = '%1' ").arg(ui->comboBoxSubject->currentText());
+
+    switch(ui->comboBoxType->currentIndex()){
+    case 0:
+        break;
+    default:
+        m_sql += QString(" type = '%1'").arg(ui->comboBoxType->currentText());
+    }
+
+    switch(ui->comboBoxLevel->currentIndex()){
+    case 0:
+        break;
+    default:
+        m_sql += QString(" level = '%1'").arg(ui->comboBoxLevel->currentText());
+    }
+
+    QString keywords = ui->lineKeyword->text();
+    if(!keywords.isEmpty()){
+        m_sql += QString("keywords like '%%1%'").arg(keywords);
+    }
+
+    qDebug()<<"Current sql is: "<<m_sql;
+    db_ptr->ptr_query->prepare(m_sql);
+    if(db_ptr->ptr_query->exec()){
+        while(db_ptr->ptr_query->next()){
+            model->appendRow(new QStandardItem(db_ptr->ptr_query->value(0).toString()));
+        }
+    }
+
+    qDebug()<<"Model's row count is: "<<model->rowCount();
+    ui->listViewResult->setModel(model);
+
     return true;
 }
 
@@ -234,4 +272,17 @@ void MainWindow::on_actionAnswer_triggered()
 
     m_webViewCtx += "<br><h2>Answer</h2><h3>"+msgA+"</h3>";
     ui->webView->setHtml(m_webViewCtx);
+}
+
+void MainWindow::on_comboBoxSubject_currentIndexChanged(int index)
+{
+    Q_UNUSED(index)
+    generateList();
+}
+
+void MainWindow::on_listViewResult_doubleClicked(const QModelIndex &index)
+{
+    int id = index.data().toInt();
+    qDebug()<<"Current id is: "<<id;
+    displayDetailById(id);
 }

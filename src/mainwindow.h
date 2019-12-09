@@ -12,6 +12,7 @@
 #include <QtWebKit/QtWebKit>
 #include <QMainWindow>
 #include <QCloseEvent>
+#include <QHeaderView>
 
 #include "insert.h"
 #include "database.hpp"
@@ -32,12 +33,12 @@ public:
 
     bool displayDetailById(int id);
 
-    bool generateList();
-
 protected:
     void closeEvent(QCloseEvent *event);
 
 private slots:
+    bool generateList();
+
     void on_actionExit_triggered();
 
     void on_actionAbout_triggered();
@@ -64,6 +65,10 @@ private slots:
 
     void on_actionAnswer_triggered();
 
+    void on_comboBoxSubject_currentIndexChanged(int index);
+
+    void on_listViewResult_doubleClicked(const QModelIndex &index);
+
 private:
     Ui::MainWindow *ui;
     Insert *iw_ptr;
@@ -74,6 +79,8 @@ private:
     QString m_sql;
     QString dbPath;
     QString theme;
+
+    QStandardItemModel *model;
 
     int currentId;
     int maxId;

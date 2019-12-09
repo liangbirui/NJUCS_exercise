@@ -30,20 +30,10 @@
     <property name="spacing">
      <number>1</number>
     </property>
-    <item row="1" column="0">
-     <widget class="QLabel" name="labelStatus">
-      <property name="text">
-       <string>Status</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="1">
-     <widget class="QLineEdit" name="lineEditStatus"/>
-    </item>
     <item row="0" column="1">
      <widget class="QLineEdit" name="lineEditId"/>
     </item>
-    <item row="2" column="0" colspan="2">
+    <item row="1" column="0" colspan="2">
      <widget class="QGroupBox" name="groupBoxFilter">
       <property name="title">
        <string>Filter</string>
@@ -86,10 +76,22 @@
         </widget>
        </item>
        <item row="2" column="1" colspan="2">
-        <widget class="QComboBox" name="comboBoxLevel"/>
+        <widget class="QComboBox" name="comboBoxLevel">
+         <item>
+          <property name="text">
+           <string>All</string>
+          </property>
+         </item>
+        </widget>
        </item>
        <item row="1" column="1" colspan="2">
-        <widget class="QComboBox" name="comboBoxType"/>
+        <widget class="QComboBox" name="comboBoxType">
+         <item>
+          <property name="text">
+           <string>All</string>
+          </property>
+         </item>
+        </widget>
        </item>
        <item row="0" column="0">
         <widget class="QLabel" name="labelSubject">
@@ -117,7 +119,7 @@
       </property>
      </widget>
     </item>
-    <item row="0" column="2" rowspan="3">
+    <item row="0" column="2" rowspan="2">
      <widget class="QWebView" name="webView">
       <property name="url">
        <url>
