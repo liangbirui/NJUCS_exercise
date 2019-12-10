@@ -107,7 +107,6 @@ void Insert::on_opButtonInsert_clicked()
     db_ptr->ptr_query->bindValue(":answer",ui->opTextA->toPlainText());
     db_ptr->ptr_query->bindValue(":tip",ui->opPlainTips->toPlainText());
     if(db_ptr->ptr_query->exec()){
-        maxId++;
         qDebug()<<"Inserted data into db";
     }
 
