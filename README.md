@@ -42,7 +42,9 @@ Git: 2.23.0
 
 # TODO
 
-如果data和property表id不一样该如何处理
+1、如果data和property表id不一样该如何处理
+
+2、公式只能联网显示的问题
 
 # 软件使用说明
 
