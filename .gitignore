@@ -45,4 +45,6 @@ CMakeLists.txt.user*
 temp/
 
 data/
-db/warehouse.db
+db/ 
+book/
+
