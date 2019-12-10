@@ -48,29 +48,6 @@ bool MainWindow::displayDetailById(int id)
 
     currentId = id;
 
-    //先进行关键词过滤
-    QString filter = ui->lineKeyword->text();
-    QString keywords;
-    if(!filter.isEmpty()){
-        qDebug()<<"Filter data";
-        m_sql = QString("select keywords from property where id = %1").arg(currentId);
-        db_ptr->ptr_query->prepare(m_sql);
-        if(db_ptr->ptr_query->exec()){
-            while(db_ptr->ptr_query->next()){
-                keywords = db_ptr->ptr_query->value(0).toString();
-            }
-        }
-
-        QStringList filterList = filter.split(" ");
-        QStringList keywordsList = keywords.split(" ");
-        for(QString filterWord : filterList){
-            for(QString keyword : keywordsList){
-                if(keyword == filterWord) return displayDetailById(id+1);
-            }
-        }
-        //过滤结束
-    }
-
     qDebug()<<"Current display id is: "<<currentId;
     m_sql = QString("select id,question from data where id= %1").arg(currentId);
     db_ptr->ptr_query->prepare(m_sql);
@@ -247,7 +224,7 @@ void MainWindow::on_actionExport_triggered()
 void MainWindow::on_actionTips_triggered()
 {
     QString msgTip = QString("No tip");
-    m_sql = QString("select tips from data where id = %1").arg(currentId);
+    m_sql = QString("select tip from data where id = %1").arg(currentId);
     db_ptr->ptr_query->prepare(m_sql);
     if(db_ptr->ptr_query->exec()){
         while(db_ptr->ptr_query->next()){
@@ -285,4 +262,23 @@ void MainWindow::on_listViewResult_doubleClicked(const QModelIndex &index)
     int id = index.data().toInt();
     qDebug()<<"Current id is: "<<id;
     displayDetailById(id);
+}
+
+void MainWindow::on_comboBoxType_currentIndexChanged(int index)
+{
+    Q_UNUSED(index)
+    generateList();
+}
+
+void MainWindow::on_comboBoxLevel_currentIndexChanged(int index)
+{
+    Q_UNUSED(index)
+    generateList();
+}
+
+void MainWindow::on_lineKeyword_textChanged(const QString &keyword)
+{
+    if(keyword.isEmpty()) return;
+
+    generateList();
 }

@@ -69,6 +69,12 @@ private slots:
 
     void on_listViewResult_doubleClicked(const QModelIndex &index);
 
+    void on_comboBoxType_currentIndexChanged(int index);
+
+    void on_comboBoxLevel_currentIndexChanged(int index);
+
+    void on_lineKeyword_textChanged(const QString &keyword);
+
 private:
     Ui::MainWindow *ui;
     Insert *iw_ptr;

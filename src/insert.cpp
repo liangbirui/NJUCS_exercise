@@ -50,7 +50,7 @@ void Insert::operation(int id)
     db_ptr->ptr_query->prepare(m_sql);
     if(db_ptr->ptr_query->exec()){
         while(db_ptr->ptr_query->next()){
-            ui->opPlainCata->setPlainText(db_ptr->ptr_query->value("cata").toString());
+            ui->opPlainCata->setPlainText(db_ptr->ptr_query->value("keyword").toString());
             ui->opComboType->setCurrentText(db_ptr->ptr_query->value("type").toString());
             ui->opComboLevel->setCurrentText(db_ptr->ptr_query->value("level").toString());
             ui->opComboSubject->setCurrentText(db_ptr->ptr_query->value("subject").toString());
@@ -78,11 +78,11 @@ void Insert::on_opButtonUpdate_clicked()
                                  ,QMessageBox::Ok);
     }
 
-    m_sql = QString("update property set type=:type,subject=:subject,cata=:cata,status=:status,level=:level where id=:id");
+    m_sql = QString("update property set type=:type,subject=:subject,keyword=:keyword,status=:status,level=:level where id=:id");
     db_ptr->ptr_query->prepare(m_sql);
     db_ptr->ptr_query->bindValue(":type",ui->opComboType->currentText());
     db_ptr->ptr_query->bindValue(":subject",ui->opComboSubject->currentText());
-    db_ptr->ptr_query->bindValue(":cata",ui->opPlainCata->toPlainText());
+    db_ptr->ptr_query->bindValue(":keyword",ui->opPlainCata->toPlainText());
     db_ptr->ptr_query->bindValue(":status",0);
     db_ptr->ptr_query->bindValue(":level",ui->opComboLevel->currentText());
     db_ptr->ptr_query->bindValue(":id",ui->opLineId->text().toInt());
@@ -111,12 +111,12 @@ void Insert::on_opButtonInsert_clicked()
         qDebug()<<"Inserted data into db";
     }
 
-    m_sql=QString("insert into property values(:id,:type,:subject,:cata,:status,:level)");
+    m_sql=QString("insert into property values(:id,:type,:subject,:keyword,:status,:level)");
     db_ptr->ptr_query->prepare(m_sql);
     db_ptr->ptr_query->bindValue(":id",maxId);
     db_ptr->ptr_query->bindValue(":type",ui->opComboType->currentText());
     db_ptr->ptr_query->bindValue(":subject",ui->opComboSubject->currentText());
-    db_ptr->ptr_query->bindValue(":cata",ui->opPlainCata->toPlainText());
+    db_ptr->ptr_query->bindValue(":keyword",ui->opPlainCata->toPlainText());
     db_ptr->ptr_query->bindValue(":status",ui->opSpinStatus->value());
     db_ptr->ptr_query->bindValue(":level",ui->opComboLevel->currentText());
     if(db_ptr->ptr_query->exec()){
