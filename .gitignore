@@ -43,8 +43,4 @@ target_wrapper.*
 CMakeLists.txt.user*
 
 temp/
-
-data/
-db/ 
 book/
-
