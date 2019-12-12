@@ -50,10 +50,30 @@
       <property name="spacing">
        <number>1</number>
       </property>
-      <item row="0" column="0">
-       <widget class="QLabel" name="opLabelId">
+      <item row="2" column="2">
+       <widget class="QLabel" name="opLabelStatus">
         <property name="text">
-         <string>id</string>
+         <string>Status</string>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="0" colspan="2">
+       <widget class="QPlainTextEdit" name="opPlainTips"/>
+      </item>
+      <item row="2" column="3">
+       <widget class="QSpinBox" name="opSpinStatus"/>
+      </item>
+      <item row="3" column="0">
+       <widget class="QLabel" name="opLabelSource">
+        <property name="text">
+         <string>Source</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2">
+       <widget class="QLabel" name="opLabelLevel">
+        <property name="text">
+         <string>Level</string>
         </property>
        </widget>
       </item>
@@ -64,15 +84,31 @@
         </property>
        </widget>
       </item>
+      <item row="2" column="1">
+       <widget class="QComboBox" name="opComboSubject"/>
+      </item>
+      <item row="5" column="2" rowspan="3" colspan="2">
+       <widget class="QPlainTextEdit" name="opPlainKeyword"/>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="opLabelId">
+        <property name="text">
+         <string>id</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="0" colspan="2">
+       <widget class="QLabel" name="opLabelTips">
+        <property name="text">
+         <string>Tips</string>
+        </property>
+       </widget>
+      </item>
       <item row="1" column="1">
        <widget class="QComboBox" name="opComboType"/>
       </item>
-      <item row="1" column="2">
-       <widget class="QLabel" name="opLabelLevel">
-        <property name="text">
-         <string>Level</string>
-        </property>
-       </widget>
+      <item row="0" column="1" colspan="3">
+       <widget class="QLineEdit" name="opLineId"/>
       </item>
       <item row="1" column="3">
        <widget class="QComboBox" name="opComboLevel"/>
@@ -84,41 +120,25 @@
         </property>
        </widget>
       </item>
-      <item row="2" column="1">
-       <widget class="QComboBox" name="opComboSubject"/>
+      <item row="3" column="1" colspan="3">
+       <widget class="QLineEdit" name="opLineSource"/>
       </item>
-      <item row="2" column="2">
-       <widget class="QLabel" name="opLabelStatus">
+      <item row="4" column="2" colspan="2">
+       <widget class="QLabel" name="label">
         <property name="text">
-         <string>Status</string>
+         <string>Keyword</string>
         </property>
        </widget>
       </item>
-      <item row="2" column="3">
-       <widget class="QSpinBox" name="opSpinStatus"/>
-      </item>
-      <item row="3" column="0">
-       <widget class="QLabel" name="opLabelTips">
-        <property name="text">
-         <string>Tips</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="2">
+      <item row="4" column="0">
        <widget class="QLabel" name="opLabelCata">
         <property name="text">
          <string>Cata</string>
         </property>
        </widget>
       </item>
-      <item row="4" column="0" colspan="2">
-       <widget class="QPlainTextEdit" name="opPlainTips"/>
-      </item>
-      <item row="4" column="2" colspan="2">
-       <widget class="QPlainTextEdit" name="opPlainCata"/>
-      </item>
-      <item row="0" column="1" colspan="3">
-       <widget class="QLineEdit" name="opLineId"/>
+      <item row="4" column="1">
+       <widget class="QComboBox" name="opComboCata"/>
       </item>
      </layout>
     </widget>

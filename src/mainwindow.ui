@@ -58,35 +58,8 @@
        <property name="spacing">
         <number>1</number>
        </property>
-       <item row="2" column="0">
-        <widget class="QLabel" name="labelLevel">
-         <property name="text">
-          <string>Level</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="0">
-        <widget class="QLabel" name="labelKeyword">
-         <property name="text">
-          <string>Cata</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="labelType">
-         <property name="text">
-          <string>Type</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="1" colspan="2">
-        <widget class="QComboBox" name="comboBoxLevel">
-         <item>
-          <property name="text">
-           <string>All</string>
-          </property>
-         </item>
-        </widget>
+       <item row="0" column="1" colspan="2">
+        <widget class="QComboBox" name="comboBoxSubject"/>
        </item>
        <item row="1" column="1" colspan="2">
         <widget class="QComboBox" name="comboBoxType">
@@ -97,6 +70,35 @@
          </item>
         </widget>
        </item>
+       <item row="5" column="0" colspan="2">
+        <widget class="QListView" name="listViewResult"/>
+       </item>
+       <item row="4" column="1">
+        <widget class="QLineEdit" name="lineKeyword"/>
+       </item>
+       <item row="2" column="1" colspan="2">
+        <widget class="QComboBox" name="comboBoxLevel">
+         <item>
+          <property name="text">
+           <string>All</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="labelType">
+         <property name="text">
+          <string>Type</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="labelLevel">
+         <property name="text">
+          <string>Level</string>
+         </property>
+        </widget>
+       </item>
        <item row="0" column="0">
         <widget class="QLabel" name="labelSubject">
          <property name="text">
@@ -104,14 +106,28 @@
          </property>
         </widget>
        </item>
-       <item row="0" column="1" colspan="2">
-        <widget class="QComboBox" name="comboBoxSubject"/>
+       <item row="4" column="0">
+        <widget class="QLabel" name="labelKeyword">
+         <property name="text">
+          <string>Keyword</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="labelCatalog">
+         <property name="text">
+          <string>Cata</string>
+         </property>
+        </widget>
        </item>
        <item row="3" column="1">
-        <widget class="QLineEdit" name="lineKeyword"/>
-       </item>
-       <item row="4" column="0" colspan="2">
-        <widget class="QListView" name="listViewResult"/>
+        <widget class="QComboBox" name="comboBoxCatalog">
+         <item>
+          <property name="text">
+           <string>All</string>
+          </property>
+         </item>
+        </widget>
        </item>
       </layout>
      </widget>
