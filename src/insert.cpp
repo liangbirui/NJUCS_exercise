@@ -7,6 +7,7 @@ Insert::Insert(QWidget *parent) :
 {
     ui->setupUi(this);
     this->setWindowTitle(tr("Insertion"));
+    this->setWindowIcon(QIcon(":/resources/icons/warehouse.svg"));
 
     //加载配置文件
     Json jsonConfig;
@@ -112,12 +113,15 @@ void Insert::on_opButtonUpdate_clicked()
 void Insert::on_opButtonInsert_clicked()
 {
     m_sql.clear();
+    qDebug()<<"current max id is: "<<maxId;
+
     m_sql=QString("insert into data values(:id,:question,:answer,:tip)");
     db_ptr->ptr_query->prepare(m_sql);
     db_ptr->ptr_query->bindValue(":id",++maxId);
-    db_ptr->ptr_query->bindValue(":question",ui->opTextQ->toPlainText());
-    db_ptr->ptr_query->bindValue(":answer",ui->opTextA->toPlainText());
-    db_ptr->ptr_query->bindValue(":tip",ui->opPlainTips->toPlainText());
+    QString question ="<pre>"+ui->opTextQ->toPlainText()+"</pre>";
+    db_ptr->ptr_query->bindValue(":question",question);
+    db_ptr->ptr_query->bindValue(":answer","<pre>"+ui->opTextA->toPlainText()+"</pre>");
+    db_ptr->ptr_query->bindValue(":tip","<pre>"+ui->opPlainTips->toPlainText()+"</pre>");
     if(db_ptr->ptr_query->exec()){
         qDebug()<<"Inserted data into db";
     }
@@ -132,7 +136,6 @@ void Insert::on_opButtonInsert_clicked()
     db_ptr->ptr_query->bindValue(":status",0);
     db_ptr->ptr_query->bindValue(":level",ui->opComboLevel->currentText());
     db_ptr->ptr_query->bindValue(":source",ui->opLineSource->text());
-    db_ptr->ptr_query->bindValue(":id",ui->opLineId->text().toInt());
     if(db_ptr->ptr_query->exec()){
         qDebug()<<"Inserted data into db";
     }
@@ -144,7 +147,6 @@ void Insert::on_opButtonClear_clicked()
 {
     ui->opTextA->clear();
     ui->opTextQ->clear();
-    ui->opPlainKeyword->clear();
     ui->opPlainTips->clear();
 
     maxId = db_ptr->getMaxId("data");

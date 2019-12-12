@@ -17,8 +17,6 @@ MainWindow::MainWindow(QWidget *parent)
     qDebug()<<"dbPath is: "<<dbPath<<" \ntheme name is: "<<theme;
 
     QString styleSheet = loadTheme(theme);
-    qDebug()<<styleSheet;
-
     this->setStyleSheet(styleSheet);
 
     db_ptr = new Database("main",dbPath);
@@ -26,7 +24,9 @@ MainWindow::MainWindow(QWidget *parent)
     model = new QStandardItemModel();
 
     maxId = db_ptr->getMaxId("data");
-    ui->lineEditId->setText(QString::number(currentId));
+    if(currentId<maxId) ui->lineEditId->setText(QString::number(currentId));
+    else ui->lineEditId->setText("0");
+
     ui->comboBoxSubject->addItems(db_ptr->getListData("subject"));
     ui->comboBoxType->addItems(db_ptr->getListData("type"));
     ui->comboBoxLevel->addItems(db_ptr->getListData("level"));
@@ -165,6 +165,8 @@ void MainWindow::on_actionInsert_triggered()
     iw_ptr->show();
 
     maxId = db_ptr->getMaxId("data");
+    ui->lineEditId->setText(QString::number(maxId));
+    generateList();
 }
 
 void MainWindow::on_actionClear_triggered()
