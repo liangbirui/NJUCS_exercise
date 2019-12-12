@@ -1,8 +1,7 @@
 #ifndef EXPORT_H
 #define EXPORT_H
 
-#include <QWidget>
-#include <QIcon>
+#include "base.hpp"
 
 namespace Ui {
 class Export;

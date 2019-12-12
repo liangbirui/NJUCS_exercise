@@ -11,14 +11,7 @@
 #ifndef DATABASE_HPP
 #define DATABASE_HPP
 
-#include <QSqlDatabase>
-#include <QSqlDriver>
-#include <QSqlError>
-#include <QSqlQuery>
-#include <QSqlTableModel>
-#include <QString>
-#include <QDebug>
-#include <QFile>
+#include "base.hpp"
 
 class Database{
 public:

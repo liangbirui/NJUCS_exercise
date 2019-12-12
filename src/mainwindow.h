@@ -1,19 +1,6 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QApplication>
-#include <QDebug>
-#include <QString>
-#include <QDesktopServices>
-#include <QMessageBox>
-#include <QUrl>
-#include <QWebEngineView>
-#include <QWebView>
-#include <QtWebKit/QtWebKit>
-#include <QMainWindow>
-#include <QCloseEvent>
-#include <QHeaderView>
-
 #include "insert.h"
 #include "database.hpp"
 #include "export.h"

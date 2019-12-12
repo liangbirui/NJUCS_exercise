@@ -14,9 +14,13 @@ MainWindow::MainWindow(QWidget *parent)
     theme = jsonConfig.getValue("theme");
     currentId = jsonConfig.getValue("id").toInt();
 
-    qDebug()<<"dbPath is: "<<dbPath<<" \nsrc path is: "<<theme;
+    qDebug()<<"dbPath is: "<<dbPath<<" \ntheme name is: "<<theme;
 
-    this->setStyleSheet(theme);
+    QString styleSheet = loadTheme(theme);
+    qDebug()<<styleSheet;
+
+    this->setStyleSheet(styleSheet);
+
     db_ptr = new Database("main",dbPath);
     m_export = new Export();
     model = new QStandardItemModel();
@@ -26,6 +30,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->comboBoxSubject->addItems(db_ptr->getListData("subject"));
     ui->comboBoxType->addItems(db_ptr->getListData("type"));
     ui->comboBoxLevel->addItems(db_ptr->getListData("level"));
+    ui->comboBoxCatalog->addItems(db_ptr->getListData("catalog"));
 }
 
 MainWindow::~MainWindow()
@@ -87,6 +92,13 @@ bool MainWindow::generateList()
         break;
     default:
         m_sql += QString(" level = '%1'").arg(ui->comboBoxLevel->currentText());
+    }
+
+    switch(ui->comboBoxCatalog->currentIndex()){
+    case 0:
+        break;
+    default:
+        m_sql += QString(" catalog = '%1'").arg(ui->comboBoxCatalog->currentText());
     }
 
     QString keywords = ui->lineKeyword->text();

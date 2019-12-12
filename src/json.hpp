@@ -1,14 +1,7 @@
 #ifndef JSON_HPP
 #define JSON_HPP
 
-#include <QJsonArray>
-#include <QJsonDocument>
-#include <QJsonObject>
-#include <QJsonParseError>
-#include <QJsonValue>
-#include <QString>
-#include <QDebug>
-#include <QDir>
+#include "base.hpp"
 
 class Json{
 private:

@@ -12,8 +12,10 @@ Insert::Insert(QWidget *parent) :
     Json jsonConfig;
     dbPath =jsonConfig.getValue("db");
     theme = jsonConfig.getValue("theme");
+    qDebug()<<"Theme name is: "<<theme;
 
-    this->setStyleSheet(theme);
+    QString styleSheet = loadTheme(theme);
+    this->setStyleSheet(styleSheet);
     db_ptr=new Database("insert",dbPath);
 
     maxId = db_ptr->getMaxId("data");
@@ -22,6 +24,7 @@ Insert::Insert(QWidget *parent) :
     ui->opComboType->addItems(db_ptr->getListData("type"));
     ui->opComboLevel->addItems(db_ptr->getListData("level"));
     ui->opComboSubject->addItems(db_ptr->getListData("subject"));
+    ui->opComboCata->addItems(db_ptr->getListData("catalog"));
 }
 
 Insert::~Insert()
@@ -31,6 +34,11 @@ Insert::~Insert()
 
 void Insert::operation(int id)
 {
+    Json jsonConfig;
+    theme = jsonConfig.getValue("theme");
+    qDebug()<<"Theme name is: "<<theme;
+
+    this->setStyleSheet(loadTheme(theme));
     ui->opLineId->setText(QString::number(id));
 
     m_sql = QString("select * from data where id= %1").arg(id);
@@ -50,10 +58,12 @@ void Insert::operation(int id)
     db_ptr->ptr_query->prepare(m_sql);
     if(db_ptr->ptr_query->exec()){
         while(db_ptr->ptr_query->next()){
-            ui->opPlainCata->setPlainText(db_ptr->ptr_query->value("keyword").toString());
+            ui->opPlainKeyword->setPlainText(db_ptr->ptr_query->value("keyword").toString());
             ui->opComboType->setCurrentText(db_ptr->ptr_query->value("type").toString());
             ui->opComboLevel->setCurrentText(db_ptr->ptr_query->value("level").toString());
             ui->opComboSubject->setCurrentText(db_ptr->ptr_query->value("subject").toString());
+            ui->opLineSource->setText(db_ptr->ptr_query->value("source").toString());
+            ui->opComboCata->setCurrentText(db_ptr->ptr_query->value("catalog").toString());
         }
     }
     else {
@@ -78,13 +88,15 @@ void Insert::on_opButtonUpdate_clicked()
                                  ,QMessageBox::Ok);
     }
 
-    m_sql = QString("update property set type=:type,subject=:subject,keyword=:keyword,status=:status,level=:level where id=:id");
+    m_sql = QString("update property set type=:type,subject=:subject,keyword=:keyword,catalog=:catalog,status=:status,level=:level,source=:source where id=:id");
     db_ptr->ptr_query->prepare(m_sql);
     db_ptr->ptr_query->bindValue(":type",ui->opComboType->currentText());
     db_ptr->ptr_query->bindValue(":subject",ui->opComboSubject->currentText());
-    db_ptr->ptr_query->bindValue(":keyword",ui->opPlainCata->toPlainText());
+    db_ptr->ptr_query->bindValue(":keyword",ui->opPlainKeyword->toPlainText());
+    db_ptr->ptr_query->bindValue(":catalog",ui->opComboCata->currentText());
     db_ptr->ptr_query->bindValue(":status",0);
     db_ptr->ptr_query->bindValue(":level",ui->opComboLevel->currentText());
+    db_ptr->ptr_query->bindValue(":source",ui->opLineSource->text());
     db_ptr->ptr_query->bindValue(":id",ui->opLineId->text().toInt());
     if(db_ptr->ptr_query->exec()){
         qDebug()<<"Update data in property table";
@@ -110,14 +122,17 @@ void Insert::on_opButtonInsert_clicked()
         qDebug()<<"Inserted data into db";
     }
 
-    m_sql=QString("insert into property values(:id,:type,:subject,:keyword,:status,:level)");
+    m_sql=QString("insert into property values(:id,:type,:subject,:keyword,:catalog,:status,:level,:source)");
     db_ptr->ptr_query->prepare(m_sql);
     db_ptr->ptr_query->bindValue(":id",maxId);
     db_ptr->ptr_query->bindValue(":type",ui->opComboType->currentText());
     db_ptr->ptr_query->bindValue(":subject",ui->opComboSubject->currentText());
-    db_ptr->ptr_query->bindValue(":keyword",ui->opPlainCata->toPlainText());
-    db_ptr->ptr_query->bindValue(":status",ui->opSpinStatus->value());
+    db_ptr->ptr_query->bindValue(":keyword",ui->opPlainKeyword->toPlainText());
+    db_ptr->ptr_query->bindValue(":catalog",ui->opComboCata->currentText());
+    db_ptr->ptr_query->bindValue(":status",0);
     db_ptr->ptr_query->bindValue(":level",ui->opComboLevel->currentText());
+    db_ptr->ptr_query->bindValue(":source",ui->opLineSource->text());
+    db_ptr->ptr_query->bindValue(":id",ui->opLineId->text().toInt());
     if(db_ptr->ptr_query->exec()){
         qDebug()<<"Inserted data into db";
     }
@@ -129,7 +144,7 @@ void Insert::on_opButtonClear_clicked()
 {
     ui->opTextA->clear();
     ui->opTextQ->clear();
-    ui->opPlainCata->clear();
+    ui->opPlainKeyword->clear();
     ui->opPlainTips->clear();
 
     maxId = db_ptr->getMaxId("data");

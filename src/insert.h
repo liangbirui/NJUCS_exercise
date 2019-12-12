@@ -1,12 +1,9 @@
 #ifndef INSERT_H
 #define INSERT_H
 
-#include <QWidget>
-#include <QDir>
-#include <QMessageBox>
-
 #include "database.hpp"
 #include "json.hpp"
+#include "base.hpp"
 
 namespace Ui {
 class Insert;

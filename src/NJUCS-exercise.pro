@@ -17,6 +17,7 @@ SOURCES += \
     mainwindow.cpp
 
 HEADERS += \
+    base.hpp \
     database.hpp \
     export.h \
     insert.h \
