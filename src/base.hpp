@@ -7,6 +7,7 @@
 #include <QDesktopServices>
 #include <QDir>
 #include <QFile>
+#include <QFileDialog>
 #include <QHeaderView>
 #include <QIcon>
 #include <QJsonArray>

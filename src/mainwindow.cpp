@@ -20,7 +20,6 @@ MainWindow::MainWindow(QWidget *parent)
     this->setStyleSheet(styleSheet);
 
     db_ptr = new Database("main",dbPath);
-    m_export = new Export();
     model = new QStandardItemModel();
 
     maxId = db_ptr->getMaxId("data");
@@ -37,7 +36,6 @@ MainWindow::~MainWindow()
 {
     delete model;
     delete iw_ptr;
-    delete m_export;
     delete db_ptr;
     delete ui;
 }
@@ -230,11 +228,6 @@ void MainWindow::on_actionUpdate_triggered()
     iw_ptr->show();
 }
 
-void MainWindow::on_actionExport_triggered()
-{
-    m_export->show();
-}
-
 void MainWindow::on_actionTips_triggered()
 {
     QString msgTip = QString("No tip");
@@ -295,4 +288,19 @@ void MainWindow::on_lineKeyword_textChanged(const QString &keyword)
     if(keyword.isEmpty()) return;
 
     generateList();
+}
+
+void MainWindow::on_buttonExport_clicked()
+{
+    qDebug()<<"Export data now";
+    QString filePath = QFileDialog::getSaveFileName(this,tr("Export"),QDir::currentPath(),
+                                                    QString("*.pdf\n*.docx\n*"));
+    if(filePath.isEmpty()){
+        qDebug()<<"Select nothing";
+        return;
+    }
+    qDebug()<<"Exportion path is: "<<filePath;
+    Progress *pro = new Progress();
+    pro->setWindowModality(Qt::ApplicationModal);
+    pro->show();
 }

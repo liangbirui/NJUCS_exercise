@@ -3,8 +3,8 @@
 
 #include "insert.h"
 #include "database.hpp"
-#include "export.h"
 #include "json.hpp"
+#include "progress.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -46,8 +46,6 @@ private slots:
 
     void on_actionUpdate_triggered();
 
-    void on_actionExport_triggered();
-
     void on_actionTips_triggered();
 
     void on_actionAnswer_triggered();
@@ -62,11 +60,12 @@ private slots:
 
     void on_lineKeyword_textChanged(const QString &keyword);
 
+    void on_buttonExport_clicked();
+
 private:
     Ui::MainWindow *ui;
     Insert *iw_ptr;
     Database *db_ptr;
-    Export *m_export;
 
     QString m_webViewCtx;
     QString m_sql;
