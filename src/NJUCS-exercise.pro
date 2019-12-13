@@ -11,25 +11,25 @@ UI_DIR = tmp/ui
 OBJECTS_DIR = tmp/obj
 
 SOURCES += \
-    export.cpp \
     insert.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    progress.cpp
 
 HEADERS += \
     base.hpp \
     database.hpp \
-    export.h \
     insert.h \
     json.hpp \
     mainwindow.h \
     md5.hpp \
+    progress.h \
     similarity.hpp
 
 FORMS += \
-    export.ui \
     insert.ui \
-    mainwindow.ui
+    mainwindow.ui \
+    progress.ui
 
 RESOURCES += \
     resources.qrc
