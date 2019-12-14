@@ -62,7 +62,11 @@
     </widget>
    </item>
    <item row="1" column="5" colspan="2">
-    <widget class="QLCDNumber" name="lcdNumberTotal"/>
+    <widget class="QLCDNumber" name="lcdNumberTotal">
+     <property name="styleSheet">
+      <string notr="true">background:green</string>
+     </property>
+    </widget>
    </item>
    <item row="1" column="7" colspan="2">
     <widget class="QCheckBox" name="checkBoxAnswer">
@@ -98,7 +102,11 @@
     </widget>
    </item>
    <item row="2" column="5" colspan="2">
-    <widget class="QLCDNumber" name="lcdNumberDone"/>
+    <widget class="QLCDNumber" name="lcdNumberDone">
+     <property name="styleSheet">
+      <string notr="true">background:blue</string>
+     </property>
+    </widget>
    </item>
    <item row="2" column="7" colspan="2">
     <widget class="QCheckBox" name="checkBoxTips">
@@ -131,7 +139,11 @@
     </widget>
    </item>
    <item row="3" column="5" colspan="2">
-    <widget class="QLCDNumber" name="lcdNumberLast"/>
+    <widget class="QLCDNumber" name="lcdNumberLast">
+     <property name="styleSheet">
+      <string notr="true">background:gray</string>
+     </property>
+    </widget>
    </item>
    <item row="3" column="7" colspan="3">
     <spacer name="horizontalSpacer">
