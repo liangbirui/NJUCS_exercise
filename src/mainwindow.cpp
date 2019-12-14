@@ -326,17 +326,10 @@ void MainWindow::on_lineKeyword_textChanged(const QString &keyword)
     generateList(generateSQL());
 }
 
-void MainWindow::on_buttonExport_clicked()
+void MainWindow::on_actionExport_triggered()
 {
     qDebug()<<"Export data now";
-    QString filePath = QFileDialog::getSaveFileName(this,tr("Export"),QDir::currentPath(),
-                                                    QString("*.pdf\n*.docx\n*"));
-    if(filePath.isEmpty()){
-        qDebug()<<"Select nothing";
-        return;
-    }
-    qDebug()<<"Exportion path is: "<<filePath;
-    Progress *pro = new Progress(filePath,generateSQL());
+    Progress *pro = new Progress();
     pro->setWindowModality(Qt::ApplicationModal);
     pro->show();
     pro->run();

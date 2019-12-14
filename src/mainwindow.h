@@ -61,7 +61,7 @@ private slots:
 
     void on_lineKeyword_textChanged(const QString &keyword);
 
-    void on_buttonExport_clicked();
+    void on_actionExport_triggered();
 
 private:
     Ui::MainWindow *ui;

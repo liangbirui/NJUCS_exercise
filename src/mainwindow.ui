@@ -58,13 +58,6 @@
        <property name="spacing">
         <number>1</number>
        </property>
-       <item row="0" column="0">
-        <widget class="QLabel" name="labelSubject">
-         <property name="text">
-          <string>Subject</string>
-         </property>
-        </widget>
-       </item>
        <item row="3" column="1">
         <widget class="QComboBox" name="comboBoxCatalog">
          <item>
@@ -74,8 +67,15 @@
          </item>
         </widget>
        </item>
-       <item row="1" column="1" colspan="2">
-        <widget class="QComboBox" name="comboBoxType">
+       <item row="1" column="0">
+        <widget class="QLabel" name="labelType">
+         <property name="text">
+          <string>Type</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1" colspan="2">
+        <widget class="QComboBox" name="comboBoxLevel">
          <item>
           <property name="text">
            <string>All</string>
@@ -83,10 +83,10 @@
          </item>
         </widget>
        </item>
-       <item row="3" column="0">
-        <widget class="QLabel" name="labelCatalog">
+       <item row="2" column="0">
+        <widget class="QLabel" name="labelLevel">
          <property name="text">
-          <string>Cata</string>
+          <string>Level</string>
          </property>
         </widget>
        </item>
@@ -106,28 +106,18 @@
          </item>
         </widget>
        </item>
-       <item row="4" column="1">
-        <widget class="QLineEdit" name="lineKeyword"/>
-       </item>
-       <item row="2" column="0">
-        <widget class="QLabel" name="labelLevel">
+       <item row="0" column="0">
+        <widget class="QLabel" name="labelSubject">
          <property name="text">
-          <string>Level</string>
+          <string>Subject</string>
          </property>
         </widget>
        </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="labelType">
-         <property name="text">
-          <string>Type</string>
-         </property>
-        </widget>
-       </item>
-       <item row="6" column="0" colspan="2">
+       <item row="5" column="0" colspan="2">
         <widget class="QListView" name="listViewResult"/>
        </item>
-       <item row="2" column="1" colspan="2">
-        <widget class="QComboBox" name="comboBoxLevel">
+       <item row="1" column="1" colspan="2">
+        <widget class="QComboBox" name="comboBoxType">
          <item>
           <property name="text">
            <string>All</string>
@@ -135,25 +125,15 @@
          </item>
         </widget>
        </item>
-       <item row="5" column="1">
-        <widget class="QPushButton" name="buttonExport">
+       <item row="3" column="0">
+        <widget class="QLabel" name="labelCatalog">
          <property name="text">
-          <string>Export</string>
+          <string>Cata</string>
          </property>
         </widget>
        </item>
-       <item row="5" column="0">
-        <spacer name="spacerHButton">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
+       <item row="4" column="1">
+        <widget class="QLineEdit" name="lineKeyword"/>
        </item>
       </layout>
      </widget>
@@ -238,6 +218,8 @@
    <addaction name="actionPrevious"/>
    <addaction name="actionNext"/>
    <addaction name="separator"/>
+   <addaction name="actionExport"/>
+   <addaction name="separator"/>
    <addaction name="actionUpdate"/>
    <addaction name="actionDelete"/>
    <addaction name="actionTips"/>
@@ -247,24 +229,6 @@
    <addaction name="actionAbout"/>
    <addaction name="actionExit"/>
   </widget>
-  <action name="actionExport">
-   <property name="icon">
-    <iconset resource="resources.qrc">
-     <normaloff>:/resources/icons/export.svg</normaloff>:/resources/icons/export.svg</iconset>
-   </property>
-   <property name="text">
-    <string>Export</string>
-   </property>
-  </action>
-  <action name="actionPrint">
-   <property name="icon">
-    <iconset resource="resources.qrc">
-     <normaloff>:/resources/icons/print.svg</normaloff>:/resources/icons/print.svg</iconset>
-   </property>
-   <property name="text">
-    <string>Print</string>
-   </property>
-  </action>
   <action name="actionClear">
    <property name="icon">
     <iconset resource="resources.qrc">
@@ -371,6 +335,15 @@
    </property>
    <property name="text">
     <string>Answer</string>
+   </property>
+  </action>
+  <action name="actionExport">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/resources/icons/export.svg</normaloff>:/resources/icons/export.svg</iconset>
+   </property>
+   <property name="text">
+    <string>Export</string>
    </property>
   </action>
  </widget>

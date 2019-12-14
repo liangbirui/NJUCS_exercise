@@ -1,7 +1,8 @@
 #include "progress.h"
 #include "ui_progress.h"
 
-Progress::Progress(QString path, QString sql) :
+Progress::Progress(QWidget *parent) :
+    QWidget(parent),
     ui(new Ui::Progress)
 {
     ui->setupUi(this);
@@ -23,9 +24,6 @@ Progress::Progress(QString path, QString sql) :
     m_painter = new QPainter;
     m_x = 0;
     m_y = 0;
-
-    pdfPath = path;
-    m_sql =sql;
 }
 
 Progress::~Progress()
@@ -140,4 +138,15 @@ void Progress::run()
     document.setHtml(html);
     document.print(&printer);
     document.end();
+}
+
+void Progress::on_pushButton_clicked()
+{
+    QString filePath = QFileDialog::getSaveFileName(this,tr("Export"),QDir::currentPath(),
+                                                    QString("*.pdf\n*.docx\n*"));
+    if(filePath.isEmpty()){
+        qDebug()<<"Select nothing";
+        return;
+    }
+    qDebug()<<"Exportion path is: "<<filePath;
 }

@@ -14,7 +14,7 @@ class Progress : public QWidget
     Q_OBJECT
 
 public:
-    explicit Progress(QString path,QString sql);
+    explicit Progress(QWidget *parent = nullptr);
     ~Progress();
 
     /// 设置PDF文件名字
@@ -29,6 +29,9 @@ public:
     QString saveHtmlToPDF();
 
     void run();
+
+private slots:
+    void on_pushButton_clicked();
 
 private:
     Ui::Progress *ui;
