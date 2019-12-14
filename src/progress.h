@@ -28,10 +28,25 @@ public:
     /// html转化为PDF
     QString saveHtmlToPDF();
 
+    QString generateSQL();
+    void generateList(QString sql);
+
 private slots:
     void on_buttonChoose_clicked();
 
     void on_buttonStart_clicked();
+
+    void on_buttonClose_clicked();
+
+    void on_comboBoxSubject_currentIndexChanged(int index);
+
+    void on_comboBoxType_currentIndexChanged(int index);
+
+    void on_comboBoxLevel_currentIndexChanged(int index);
+
+    void on_comboBoxCatalog_currentIndexChanged(int index);
+
+    void on_lineKeyword_textChanged(const QString &keyword);
 
 private:
     Ui::Progress *ui;
