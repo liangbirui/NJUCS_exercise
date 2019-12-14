@@ -17,12 +17,16 @@
 #include <QJsonValue>
 #include <QMainWindow>
 #include <QMessageBox>
+#include <QObject>
+#include <QPixmap>
+#include <QPrinter>
 #include <QSqlDatabase>
 #include <QSqlDriver>
 #include <QSqlError>
 #include <QSqlQuery>
 #include <QSqlTableModel>
 #include <QString>
+#include <QThread>
 #include <QUrl>
 #include <QWebEngineView>
 #include <QWebView>

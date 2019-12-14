@@ -19,12 +19,13 @@ public:
     ~MainWindow();
 
     bool displayDetailById(int id);
+    QString generateSQL();
 
 protected:
     void closeEvent(QCloseEvent *event);
 
 private slots:
-    bool generateList();
+    bool generateList(QString sql);
 
     void on_actionExit_triggered();
 

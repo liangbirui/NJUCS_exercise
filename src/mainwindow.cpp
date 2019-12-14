@@ -70,33 +70,59 @@ bool MainWindow::displayDetailById(int id)
     return true;
 }
 
-bool MainWindow::generateList()
+QString MainWindow::generateSQL()
 {
-    model->setColumnCount(1);
+    m_sql = QString("select id from property ");
+    int status =0;
 
-    ui->listViewResult->setEditTriggers(QListView::NoEditTriggers);
-
-    m_sql = QString("select id from property where subject = '%1' ").arg(ui->comboBoxSubject->currentText());
+    switch(ui->comboBoxSubject->currentIndex()){
+    case 0:
+        break;
+    case 1:
+        m_sql += QString("where subject = '%1'").arg(ui->comboBoxSubject->currentText());
+        status =1;
+    }
 
     switch(ui->comboBoxType->currentIndex()){
     case 0:
         break;
     default:
-        m_sql += QString(" type = '%1'").arg(ui->comboBoxType->currentText());
+    {
+        if(status){
+            m_sql += QString(" type = '%1'").arg(ui->comboBoxType->currentText());
+        }
+        else{
+            m_sql += QString("where type = '%1'").arg(ui->comboBoxType->currentText());
+        }
+    }
     }
 
     switch(ui->comboBoxLevel->currentIndex()){
     case 0:
         break;
     default:
-        m_sql += QString(" level = '%1'").arg(ui->comboBoxLevel->currentText());
+    {
+        if(status){
+            m_sql += QString(" level = '%1'").arg(ui->comboBoxLevel->currentText());
+        }
+        else{
+            m_sql += QString("where level = '%1'").arg(ui->comboBoxLevel->currentText());
+        }
+    }
     }
 
     switch(ui->comboBoxCatalog->currentIndex()){
     case 0:
         break;
     default:
-        m_sql += QString(" catalog = '%1'").arg(ui->comboBoxCatalog->currentText());
+    {
+        if(status){
+            m_sql += QString(" catalog = '%1'").arg(ui->comboBoxCatalog->currentText());
+        }
+        else{
+            m_sql += QString("where catalog = '%1'").arg(ui->comboBoxCatalog->currentText());
+        }
+    }
     }
 
     QString keywords = ui->lineKeyword->text();
@@ -105,7 +131,17 @@ bool MainWindow::generateList()
     }
 
     qDebug()<<"Current sql is: "<<m_sql;
-    db_ptr->ptr_query->prepare(m_sql);
+
+    return m_sql;
+}
+
+bool MainWindow::generateList(QString sql)
+{
+    model->setColumnCount(1);
+
+    ui->listViewResult->setEditTriggers(QListView::NoEditTriggers);
+
+    db_ptr->ptr_query->prepare(sql);
     if(db_ptr->ptr_query->exec()){
         while(db_ptr->ptr_query->next()){
             model->appendRow(new QStandardItem(db_ptr->ptr_query->value(0).toString()));
@@ -164,7 +200,7 @@ void MainWindow::on_actionInsert_triggered()
 
     maxId = db_ptr->getMaxId("data");
     ui->lineEditId->setText(QString::number(maxId));
-    generateList();
+    generateList(generateSQL());
 }
 
 void MainWindow::on_actionClear_triggered()
@@ -261,7 +297,7 @@ void MainWindow::on_actionAnswer_triggered()
 void MainWindow::on_comboBoxSubject_currentIndexChanged(int index)
 {
     Q_UNUSED(index)
-    generateList();
+    generateList(generateSQL());
 }
 
 void MainWindow::on_listViewResult_doubleClicked(const QModelIndex &index)
@@ -274,20 +310,20 @@ void MainWindow::on_listViewResult_doubleClicked(const QModelIndex &index)
 void MainWindow::on_comboBoxType_currentIndexChanged(int index)
 {
     Q_UNUSED(index)
-    generateList();
+    generateList(generateSQL());
 }
 
 void MainWindow::on_comboBoxLevel_currentIndexChanged(int index)
 {
     Q_UNUSED(index)
-    generateList();
+    generateList(generateSQL());
 }
 
 void MainWindow::on_lineKeyword_textChanged(const QString &keyword)
 {
     if(keyword.isEmpty()) return;
 
-    generateList();
+    generateList(generateSQL());
 }
 
 void MainWindow::on_buttonExport_clicked()
@@ -300,7 +336,8 @@ void MainWindow::on_buttonExport_clicked()
         return;
     }
     qDebug()<<"Exportion path is: "<<filePath;
-    Progress *pro = new Progress();
+    Progress *pro = new Progress(filePath,generateSQL());
     pro->setWindowModality(Qt::ApplicationModal);
     pro->show();
+    pro->run();
 }
