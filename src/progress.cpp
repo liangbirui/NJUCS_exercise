@@ -17,17 +17,20 @@ Progress::Progress(QWidget *parent) :
 
     QString styleSheet = loadTheme(theme);
     this->setStyleSheet(styleSheet);
+    this->setWindowTitle(tr("Export"));
+    ui->progressBar->setValue(0);
 
     db_ptr = new Database("progress",dbPath);
 
     m_printer = new QPrinter;
-    m_painter = new QPainter;
     m_x = 0;
     m_y = 0;
 }
 
 Progress::~Progress()
 {
+    delete m_printer;
+    delete db_ptr;
     delete ui;
 }
 
@@ -114,7 +117,18 @@ QString Progress::saveHtmlToPDF()
     return html;
 }
 
-void Progress::run()
+void Progress::on_buttonChoose_clicked()
+{
+    pdfPath = QFileDialog::getSaveFileName(this,tr("Export"),QDir::currentPath(),
+                                                    QString("*.pdf\n*.docx\n*"));
+    if(pdfPath.isEmpty()){
+        qDebug()<<"Select nothing";
+        return;
+    }
+    ui->lineEdit->setText(pdfPath);
+}
+
+void Progress::on_buttonStart_clicked()
 {
     /*
     setPdfName("E:/testPDF.pdf");
@@ -138,15 +152,4 @@ void Progress::run()
     document.setHtml(html);
     document.print(&printer);
     document.end();
-}
-
-void Progress::on_pushButton_clicked()
-{
-    QString filePath = QFileDialog::getSaveFileName(this,tr("Export"),QDir::currentPath(),
-                                                    QString("*.pdf\n*.docx\n*"));
-    if(filePath.isEmpty()){
-        qDebug()<<"Select nothing";
-        return;
-    }
-    qDebug()<<"Exportion path is: "<<filePath;
 }

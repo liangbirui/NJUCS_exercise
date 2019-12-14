@@ -332,5 +332,4 @@ void MainWindow::on_actionExport_triggered()
     Progress *pro = new Progress();
     pro->setWindowModality(Qt::ApplicationModal);
     pro->show();
-    pro->run();
 }

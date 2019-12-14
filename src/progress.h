@@ -28,10 +28,10 @@ public:
     /// html转化为PDF
     QString saveHtmlToPDF();
 
-    void run();
-
 private slots:
-    void on_pushButton_clicked();
+    void on_buttonChoose_clicked();
+
+    void on_buttonStart_clicked();
 
 private:
     Ui::Progress *ui;
