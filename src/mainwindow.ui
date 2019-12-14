@@ -221,6 +221,7 @@
    <addaction name="separator"/>
    <addaction name="actionExport"/>
    <addaction name="separator"/>
+   <addaction name="actionInsert"/>
    <addaction name="actionUpdate"/>
    <addaction name="actionDelete"/>
    <addaction name="actionTips"/>

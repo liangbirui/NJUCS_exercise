@@ -89,7 +89,7 @@ QString MainWindow::generateSQL()
     default:
     {
         if(status){
-            m_sql += QString(" type = '%1'").arg(ui->comboBoxType->currentText());
+            m_sql += QString("and type = '%1'").arg(ui->comboBoxType->currentText());
         }
         else{
             m_sql += QString("where type = '%1'").arg(ui->comboBoxType->currentText());
@@ -103,7 +103,7 @@ QString MainWindow::generateSQL()
     default:
     {
         if(status){
-            m_sql += QString(" level = '%1'").arg(ui->comboBoxLevel->currentText());
+            m_sql += QString("and level = '%1'").arg(ui->comboBoxLevel->currentText());
         }
         else{
             m_sql += QString("where level = '%1'").arg(ui->comboBoxLevel->currentText());
@@ -117,7 +117,7 @@ QString MainWindow::generateSQL()
     default:
     {
         if(status){
-            m_sql += QString(" catalog = '%1'").arg(ui->comboBoxCatalog->currentText());
+            m_sql += QString("and catalog = '%1'").arg(ui->comboBoxCatalog->currentText());
         }
         else{
             m_sql += QString("where catalog = '%1'").arg(ui->comboBoxCatalog->currentText());
@@ -127,7 +127,7 @@ QString MainWindow::generateSQL()
 
     QString keywords = ui->lineKeyword->text();
     if(!keywords.isEmpty()){
-        m_sql += QString("keywords like '%%1%'").arg(keywords);
+        m_sql += QString("and keywords like '%%1%'").arg(keywords);
     }
 
     qDebug()<<"Current sql is: "<<m_sql;
@@ -138,6 +138,7 @@ QString MainWindow::generateSQL()
 bool MainWindow::generateList(QString sql)
 {
     model->setColumnCount(1);
+    model->clear();
 
     ui->listViewResult->setEditTriggers(QListView::NoEditTriggers);
 
