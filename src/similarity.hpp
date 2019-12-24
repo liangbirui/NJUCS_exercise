@@ -15,23 +15,44 @@
 #include "base.hpp"
 #include "md5.hpp"
 #include "database.hpp"
+#include <algorithm>
+#include <QtAlgorithms>
 
 class Similarity{
 private:
-    Database *m_db;
-    QString m_sql;
+    Database *pDb;
+    QString mSQL;
 public:
     Similarity(){
-        m_db = new Database("similarity","/home/jackey/GitHub/NJUCS_exercise/db/md5.db");
+        pDb = new Database("similarity","/home/jackey/GitHub/NJUCS_exercise/db/md5.db");
     }
 
-    ~Similarity(){}
+    ~Similarity(){
+
+    }
     //从文本中提取最长的一句话
     QString filterMaxStr(QString ctx){
         if(ctx.isEmpty()) return nullptr;
+        qDebug()<<ctx;
         QString result;
 
+        QStringList symList;
+        symList<<"。"<<"？"<<"！"<<"，"<<"."<<"?"<<"!"<<",";
+        foreach(QString sym,symList){
+            ctx.replace(sym," ");
+        }
 
+        qDebug()<<"ctx is: "<<ctx;
+        QStringList scentenceList = ctx.split(" ");
+
+        int size = 0;
+        foreach(QString scentence,scentenceList){
+            int temp = scentence.count();
+            if(temp>size){
+                result=scentence;
+            }
+        }
+        qDebug()<<result;
 
         return result;
     }
@@ -39,24 +60,34 @@ public:
     QString toMD5(QString maxStr){
         if(maxStr.isEmpty()) return nullptr;
         QString result;
+        string temp = maxStr.toStdString();
+        result = QString::fromStdString(MD5(temp).toStr());
 
         return result;
     }
 
     bool save2db(QString md5){
-        m_sql.clear();
-        int maxId = m_db->getMaxId("md5");
-        m_sql = QString("insert into md5 values(:id,:value)");
-        m_db->ptr_query->prepare(m_sql);
-        m_db->ptr_query->bindValue(":id",maxId);
-        m_db->ptr_query->bindValue(":value",md5);
-        if(m_db->ptr_query->exec()){
+        mSQL.clear();
+        int maxId = pDb->getMaxId("md5");
+        mSQL = QString("insert into md5 values(:id,:value)");
+        pDb->ptr_query->prepare(mSQL);
+        pDb->ptr_query->bindValue(":id",maxId);
+        pDb->ptr_query->bindValue(":value",md5);
+        if(pDb->ptr_query->exec()){
             qDebug()<<"Save value: "<<md5<<" into db";
         }
         else{
-            qDebug()<<"Cannot insert data into db: "<<m_db->ptr_query->lastError();
+            qDebug()<<"Cannot insert data into db: "<<pDb->ptr_query->lastError();
+            return false;
         }
         return true;
+    }
+
+    bool checkOut(QString context){
+        //获取最长子串
+        QString maxstr = filterMaxStr(context);
+        QString md = toMD5(maxstr);
+        return save2db(md);
     }
 };
 

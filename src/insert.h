@@ -4,6 +4,7 @@
 #include "database.hpp"
 #include "json.hpp"
 #include "base.hpp"
+#include "similarity.hpp"
 
 namespace Ui {
 class Insert;
@@ -32,6 +33,7 @@ private:
     Ui::Insert *ui;
 
     Database *db_ptr;
+    Similarity *pSim;
 
     QString m_sql;
     QString dbPath;

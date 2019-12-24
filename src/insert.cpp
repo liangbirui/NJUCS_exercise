@@ -3,7 +3,8 @@
 
 Insert::Insert(QWidget *parent) :
     QWidget(parent),
-    ui(new Ui::Insert)
+    ui(new Ui::Insert),
+    pSim(new Similarity)
 {
     ui->setupUi(this);
     this->setWindowTitle(tr("Insertion"));
@@ -74,6 +75,12 @@ void Insert::operation(int id)
 
 void Insert::on_opButtonUpdate_clicked()
 {
+    QString question = ui->opTextQ->toPlainText();
+    if(!(pSim->checkOut(question))){
+        QMessageBox::information(this,tr("Waring"),tr("This question already exists"),QMessageBox::Ok);
+        return;
+    }
+
     m_sql.clear();
     m_sql = QString("update data set question=:question,answer=:answer,tip=:tip where id=:id");
     db_ptr->ptr_query->prepare(m_sql);
@@ -112,13 +119,19 @@ void Insert::on_opButtonUpdate_clicked()
 
 void Insert::on_opButtonInsert_clicked()
 {
+    QString question = ui->opTextQ->toPlainText();
+    if(!(pSim->checkOut(question))){
+        QMessageBox::information(this,tr("Waring"),tr("This question already exists"),QMessageBox::Ok);
+        return;
+    }
+
     m_sql.clear();
     qDebug()<<"current max id is: "<<maxId;
 
     m_sql=QString("insert into data values(:id,:question,:answer,:tip)");
     db_ptr->ptr_query->prepare(m_sql);
     db_ptr->ptr_query->bindValue(":id",++maxId);
-    QString question ="<pre>"+ui->opTextQ->toPlainText()+"</pre>";
+    question ="<pre>"+ui->opTextQ->toPlainText()+"</pre>";
     db_ptr->ptr_query->bindValue(":question",question);
     db_ptr->ptr_query->bindValue(":answer","<pre>"+ui->opTextA->toPlainText()+"</pre>");
     db_ptr->ptr_query->bindValue(":tip","<pre>"+ui->opPlainTips->toPlainText()+"</pre>");
