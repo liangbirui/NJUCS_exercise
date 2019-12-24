@@ -70,6 +70,22 @@ public:
         return list;
     }
 
+    QVariant getDefaultValue(QString column,QString table,int id){
+        QVariant result;
+        m_sql.clear();
+        m_sql = QString("select %1 from %2 where id='%3'")
+                .arg(column)
+                .arg(table)
+                .arg(id);
+        ptr_query->prepare(m_sql);
+        if(ptr_query->exec()){
+            while(ptr_query->next()){
+                result = ptr_query->value(column);
+            }
+        }
+        return result;
+    }
+
 public:
     QString m_sql;
     QSqlQuery *ptr_query;

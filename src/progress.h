@@ -48,6 +48,10 @@ private slots:
 
     void on_lineKeyword_textChanged(const QString &keyword);
 
+    void on_checkBoxTips_stateChanged(int status);
+
+    void on_buttonCance_clicked();
+
 private:
     Ui::Progress *ui;
     Database *db_ptr;
@@ -62,6 +66,9 @@ private:
     QString m_sql;
     int m_x;
     int m_y;
+
+    int total;
+    bool isCanced;
 };
 
 #endif // PROGRESS_H

@@ -7,6 +7,8 @@ Progress::Progress(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    isCanced = false;
+
     //加载配置文件
     Json jsonConfig;
     dbPath =jsonConfig.getValue("db");
@@ -100,19 +102,45 @@ void Progress::endPainter()
 //************************************
 QString Progress::saveHtmlToPDF()
 {
+    int count = 0;
     QString html = "";
     html += "<html>";
     html += "<head>";
     html += "<title>NJUCS-exercise配套题库</title>";
     html += "<head>";
-    html += "<body bgcolor=\"#ccccff\">";
+    html += "<body bgcolor=\"#ffffff\">";
 
+    QList<int> idList;
     qDebug()<<"sql is: "<<m_sql;
     db_ptr->ptr_query->prepare(m_sql);
     if(db_ptr->ptr_query->exec()){
         while(db_ptr->ptr_query->next()){
-            html += db_ptr->ptr_query->value("id").toString();
-            html += "<hr>";
+            idList.append(db_ptr->ptr_query->value("id").toInt());
+        }
+    }
+
+    //根据设置选择适合的SQL语句
+    m_sql.clear();
+    //只有问题题目
+    m_sql = QString("select question from data where id='%1'");
+    if(ui->checkBoxAnswer->isChecked()){
+        m_sql=QString("select question,answer from data where id = '%1'");
+    }
+    if(ui->checkBoxTips->isChecked()){
+        m_sql=QString("select question,answer,tip from data where id='%1'");
+    }
+
+    foreach(int id,idList){
+        QString sqltemp = m_sql.arg(id);
+        db_ptr->ptr_query->prepare(sqltemp);
+        if(db_ptr->ptr_query->exec()){
+            while(db_ptr->ptr_query->next()&&!isCanced){
+                html += QString::number(id)+". " + db_ptr->ptr_query->value("question").toString();
+                html += "<hr>";
+                ui->lcdNumberDone->display(++count);
+                ui->progressBar->setValue((count*100)/total);
+                sleep(1000);
+            }
         }
     }
 
@@ -190,7 +218,7 @@ QString Progress::generateSQL()
 
 void Progress::generateList(QString sql)
 {
-    int total=0;
+    total=0;
     db_ptr->ptr_query->prepare(sql);
     if(db_ptr->ptr_query->exec()){
         while(db_ptr->ptr_query->next()){
@@ -275,4 +303,15 @@ void Progress::on_lineKeyword_textChanged(const QString &keyword)
 {
     Q_UNUSED(keyword)
     generateList(generateSQL());
+}
+
+void Progress::on_checkBoxTips_stateChanged(int status)
+{
+    if(status) ui->checkBoxAnswer->setChecked(true);
+    else ui->checkBoxAnswer->setChecked(false);
+}
+
+void Progress::on_buttonCance_clicked()
+{
+    isCanced = true;
 }
