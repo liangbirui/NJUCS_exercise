@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>535</width>
-    <height>200</height>
+    <width>540</width>
+    <height>167</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -29,26 +29,66 @@
    <property name="spacing">
     <number>1</number>
    </property>
-   <item row="0" column="0">
-    <widget class="QLabel" name="labelSubject">
+   <item row="2" column="9">
+    <widget class="QRadioButton" name="radioButtonMerge">
      <property name="text">
-      <string>Subject</string>
+      <string>Merge</string>
      </property>
     </widget>
    </item>
-   <item row="0" column="1" colspan="2">
-    <widget class="QComboBox" name="comboBoxSubject">
-     <item>
-      <property name="text">
-       <string>All</string>
-      </property>
-     </item>
+   <item row="1" column="5" colspan="2">
+    <widget class="QLCDNumber" name="lcdNumberTotal">
+     <property name="styleSheet">
+      <string notr="true">background:green</string>
+     </property>
     </widget>
    </item>
-   <item row="1" column="0">
-    <widget class="QLabel" name="labelType">
+   <item row="2" column="0">
+    <widget class="QLabel" name="labelLevel">
      <property name="text">
-      <string>Type</string>
+      <string>Level</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="9">
+    <widget class="QPushButton" name="buttonChoose">
+     <property name="text">
+      <string>Choose</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="3" colspan="2">
+    <widget class="QLabel" name="labelTotal">
+     <property name="text">
+      <string>Total</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="7" colspan="2">
+    <widget class="QCheckBox" name="checkBoxAnswer">
+     <property name="text">
+      <string>Answer</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="3" colspan="7">
+    <widget class="QProgressBar" name="progressBar">
+     <property name="value">
+      <number>24</number>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="3" colspan="2">
+    <widget class="QLabel" name="labelPath">
+     <property name="text">
+      <string>Path</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="3" colspan="2">
+    <widget class="QLabel" name="labelDone">
+     <property name="text">
+      <string>Done</string>
      </property>
     </widget>
    </item>
@@ -61,20 +101,6 @@
      </item>
     </widget>
    </item>
-   <item row="1" column="5" colspan="2">
-    <widget class="QLCDNumber" name="lcdNumberTotal">
-     <property name="styleSheet">
-      <string notr="true">background:green</string>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="7" colspan="2">
-    <widget class="QCheckBox" name="checkBoxAnswer">
-     <property name="text">
-      <string>Answer</string>
-     </property>
-    </widget>
-   </item>
    <item row="1" column="9">
     <widget class="QRadioButton" name="radioButtonSplit">
      <property name="text">
@@ -85,12 +111,34 @@
      </property>
     </widget>
    </item>
-   <item row="2" column="0">
-    <widget class="QLabel" name="labelLevel">
-     <property name="text">
-      <string>Level</string>
+   <item row="2" column="5" colspan="2">
+    <widget class="QLCDNumber" name="lcdNumberDone">
+     <property name="styleSheet">
+      <string notr="true">background:blue</string>
      </property>
     </widget>
+   </item>
+   <item row="0" column="5" colspan="5">
+    <widget class="QLineEdit" name="lineEdit"/>
+   </item>
+   <item row="0" column="1" colspan="2">
+    <widget class="QComboBox" name="comboBoxSubject">
+     <item>
+      <property name="text">
+       <string>All</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item row="0" column="0">
+    <widget class="QLabel" name="labelSubject">
+     <property name="text">
+      <string>Subject</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="1" colspan="2">
+    <widget class="QLineEdit" name="lineKeyword"/>
    </item>
    <item row="2" column="1" colspan="2">
     <widget class="QComboBox" name="comboBoxLevel">
@@ -101,31 +149,17 @@
      </item>
     </widget>
    </item>
-   <item row="2" column="5" colspan="2">
-    <widget class="QLCDNumber" name="lcdNumberDone">
-     <property name="styleSheet">
-      <string notr="true">background:blue</string>
+   <item row="4" column="0">
+    <widget class="QLabel" name="labelKeyword">
+     <property name="text">
+      <string>Keyword</string>
      </property>
     </widget>
    </item>
-   <item row="2" column="7" colspan="2">
-    <widget class="QCheckBox" name="checkBoxTips">
+   <item row="1" column="0">
+    <widget class="QLabel" name="labelType">
      <property name="text">
-      <string>Tips</string>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="9">
-    <widget class="QRadioButton" name="radioButtonMerge">
-     <property name="text">
-      <string>Merge</string>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="0">
-    <widget class="QLabel" name="labelCatalog">
-     <property name="text">
-      <string>Cata</string>
+      <string>Type</string>
      </property>
     </widget>
    </item>
@@ -138,115 +172,40 @@
      </item>
     </widget>
    </item>
-   <item row="3" column="5" colspan="2">
-    <widget class="QLCDNumber" name="lcdNumberLast">
-     <property name="styleSheet">
-      <string notr="true">background:gray</string>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="7" colspan="3">
-    <spacer name="horizontalSpacer">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>163</width>
-       <height>20</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item row="4" column="0">
-    <widget class="QLabel" name="labelKeyword">
+   <item row="3" column="0">
+    <widget class="QLabel" name="labelCatalog">
      <property name="text">
-      <string>Keyword</string>
+      <string>Cata</string>
      </property>
     </widget>
    </item>
-   <item row="4" column="1" colspan="2">
-    <widget class="QLineEdit" name="lineKeyword"/>
-   </item>
-   <item row="5" column="0">
-    <widget class="QPushButton" name="buttonStart">
+   <item row="2" column="7" colspan="2">
+    <widget class="QCheckBox" name="checkBoxTips">
      <property name="text">
-      <string>Start</string>
+      <string>Tips</string>
      </property>
     </widget>
    </item>
-   <item row="5" column="1" colspan="2">
-    <widget class="QPushButton" name="buttonPause">
-     <property name="text">
-      <string>Pause</string>
-     </property>
-    </widget>
-   </item>
-   <item row="4" column="3" colspan="7">
-    <widget class="QProgressBar" name="progressBar">
-     <property name="value">
-      <number>24</number>
-     </property>
-    </widget>
-   </item>
-   <item row="5" column="3" colspan="2">
-    <widget class="QPushButton" name="buttonStop">
-     <property name="text">
-      <string>Stop</string>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="3" colspan="2">
-    <widget class="QLabel" name="labelLast">
-     <property name="text">
-      <string>Last</string>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="3" colspan="2">
-    <widget class="QLabel" name="labelDone">
-     <property name="text">
-      <string>Done</string>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="3" colspan="2">
-    <widget class="QLabel" name="labelTotal">
-     <property name="text">
-      <string>Total</string>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="3" colspan="2">
-    <widget class="QLabel" name="labelPath">
-     <property name="text">
-      <string>Path</string>
-     </property>
-    </widget>
-   </item>
-   <item row="5" column="5" colspan="2">
-    <widget class="QPushButton" name="buttonCance">
-     <property name="text">
-      <string>Cance</string>
-     </property>
-    </widget>
-   </item>
-   <item row="5" column="7" colspan="2">
+   <item row="4" column="7" colspan="2">
     <widget class="QPushButton" name="buttonClose">
      <property name="text">
       <string>Close</string>
      </property>
     </widget>
    </item>
-   <item row="5" column="9">
-    <widget class="QPushButton" name="buttonChoose">
+   <item row="4" column="3">
+    <widget class="QPushButton" name="buttonStart">
      <property name="text">
-      <string>Choose</string>
+      <string>Start</string>
      </property>
     </widget>
    </item>
-   <item row="0" column="5" colspan="5">
-    <widget class="QLineEdit" name="lineEdit"/>
+   <item row="4" column="5" colspan="2">
+    <widget class="QPushButton" name="buttonCance">
+     <property name="text">
+      <string>Cance</string>
+     </property>
+    </widget>
    </item>
   </layout>
  </widget>
