@@ -114,11 +114,21 @@ Git: 2.23.0
 
 点击choose后，需要选择导出的文件
 
+![avater](./img/export2pdf.png)
+
+导出PDF如图
+
+![avater](./img/pdf.png)
+
 ## 参考资料
 
 本软件所用到的所有资料在doc/参考资料.md中
 
 ## Version
+
+## 2019-12-24
+
+完善题目导出
 
 ## 2019-12-14
 
