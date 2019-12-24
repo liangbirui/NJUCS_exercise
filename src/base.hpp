@@ -33,7 +33,7 @@
 #include <QWidget>
 #include <QtWebKit/QtWebKit>
 
-static QString loadTheme(QString themeName){
+inline QString loadTheme(QString themeName){
     QString themeCtx;
     QFile file(QString(":/resources/themes/%1.qss").arg(themeName));
     qDebug()<<"theme file path is:"<<file.fileName();
@@ -47,6 +47,13 @@ static QString loadTheme(QString themeName){
     file.close();
 
     return themeCtx;
+}
+
+inline void sleep(int msec)
+{
+    QTime dieTime = QTime::currentTime().addMSecs(msec);
+    while( QTime::currentTime() < dieTime )
+        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
 }
 
 #endif // BASE_HPP
