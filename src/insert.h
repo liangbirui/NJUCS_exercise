@@ -19,6 +19,9 @@ public:
     ~Insert();
 
     void operation(int id);
+    void dispalyDataById(int id);
+    void setLineId(int id);//设置界面显示ID
+    int getLineId();//获取界面上面的当前ID
 
 private slots:
     void on_opButtonUpdate_clicked();
@@ -28,6 +31,10 @@ private slots:
     void on_opButtonClear_clicked();
 
     void on_opButtonClose_clicked();
+
+    void on_opButtonPrevious_clicked();
+
+    void on_opButtonNext_clicked();
 
 private:
     Ui::Insert *ui;
@@ -40,6 +47,7 @@ private:
     QString theme;
 
     int maxId;
+    int currentId;
 };
 
 #endif // INSERT_H

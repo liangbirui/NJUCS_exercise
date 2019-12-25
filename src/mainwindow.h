@@ -47,8 +47,6 @@ private slots:
 
     void on_actionUpdate_triggered();
 
-    void on_actionTips_triggered();
-
     void on_actionAnswer_triggered();
 
     void on_comboBoxSubject_currentIndexChanged(int index);

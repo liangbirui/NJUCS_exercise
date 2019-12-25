@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1101</width>
-    <height>586</height>
+    <width>621</width>
+    <height>450</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -50,146 +50,120 @@
       <property name="spacing">
        <number>1</number>
       </property>
-      <item row="2" column="2">
-       <widget class="QLabel" name="opLabelStatus">
-        <property name="text">
-         <string>Status</string>
-        </property>
-       </widget>
-      </item>
-      <item row="7" column="0" colspan="2">
-       <widget class="QPlainTextEdit" name="opPlainTips"/>
-      </item>
-      <item row="2" column="3">
-       <widget class="QSpinBox" name="opSpinStatus"/>
-      </item>
-      <item row="3" column="0">
-       <widget class="QLabel" name="opLabelSource">
-        <property name="text">
-         <string>Source</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="2">
-       <widget class="QLabel" name="opLabelLevel">
-        <property name="text">
-         <string>Level</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0">
+      <item row="2" column="1">
        <widget class="QLabel" name="opLabelType">
         <property name="text">
          <string>Type</string>
         </property>
        </widget>
       </item>
-      <item row="2" column="1">
-       <widget class="QComboBox" name="opComboSubject"/>
+      <item row="5" column="1">
+       <widget class="QLabel" name="opLabelSource">
+        <property name="text">
+         <string>Source</string>
+        </property>
+       </widget>
       </item>
-      <item row="5" column="2" rowspan="3" colspan="2">
-       <widget class="QPlainTextEdit" name="opPlainKeyword"/>
-      </item>
-      <item row="0" column="0">
+      <item row="0" column="1">
        <widget class="QLabel" name="opLabelId">
         <property name="text">
          <string>id</string>
         </property>
        </widget>
       </item>
-      <item row="6" column="0" colspan="2">
-       <widget class="QLabel" name="opLabelTips">
+      <item row="8" column="1">
+       <widget class="QPushButton" name="opButtonClear">
         <property name="text">
-         <string>Tips</string>
+         <string>Clear</string>
         </property>
        </widget>
-      </item>
-      <item row="1" column="1">
-       <widget class="QComboBox" name="opComboType"/>
-      </item>
-      <item row="0" column="1" colspan="3">
-       <widget class="QLineEdit" name="opLineId"/>
-      </item>
-      <item row="1" column="3">
-       <widget class="QComboBox" name="opComboLevel"/>
-      </item>
-      <item row="2" column="0">
-       <widget class="QLabel" name="opLabelSubject">
-        <property name="text">
-         <string>Subject</string>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="1" colspan="3">
-       <widget class="QLineEdit" name="opLineSource"/>
       </item>
       <item row="4" column="2" colspan="2">
-       <widget class="QLabel" name="label">
-        <property name="text">
-         <string>Keyword</string>
-        </property>
-       </widget>
+       <widget class="QComboBox" name="opComboLevel"/>
       </item>
-      <item row="4" column="0">
+      <item row="2" column="2" colspan="2">
+       <widget class="QComboBox" name="opComboType"/>
+      </item>
+      <item row="3" column="1">
        <widget class="QLabel" name="opLabelCata">
         <property name="text">
          <string>Cata</string>
         </property>
        </widget>
       </item>
-      <item row="4" column="1">
+      <item row="3" column="2" colspan="2">
        <widget class="QComboBox" name="opComboCata"/>
+      </item>
+      <item row="1" column="1">
+       <widget class="QLabel" name="opLabelSubject">
+        <property name="text">
+         <string>Subject</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2" colspan="2">
+       <widget class="QComboBox" name="opComboSubject"/>
+      </item>
+      <item row="4" column="1">
+       <widget class="QLabel" name="opLabelLevel">
+        <property name="text">
+         <string>Level</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2" colspan="2">
+       <widget class="QLineEdit" name="opLineId"/>
+      </item>
+      <item row="8" column="2">
+       <widget class="QPushButton" name="opButtonClose">
+        <property name="text">
+         <string>Close</string>
+        </property>
+       </widget>
+      </item>
+      <item row="9" column="2">
+       <widget class="QPushButton" name="opButtonUpdate">
+        <property name="text">
+         <string>Update</string>
+        </property>
+       </widget>
+      </item>
+      <item row="9" column="1">
+       <widget class="QPushButton" name="opButtonInsert">
+        <property name="text">
+         <string>Insert</string>
+        </property>
+       </widget>
+      </item>
+      <item row="8" column="3">
+       <widget class="QPushButton" name="opButtonPrevious">
+        <property name="text">
+         <string>Previous</string>
+        </property>
+       </widget>
+      </item>
+      <item row="9" column="3">
+       <widget class="QPushButton" name="opButtonNext">
+        <property name="text">
+         <string>Next</string>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="1" colspan="3">
+       <widget class="QPlainTextEdit" name="opPlainKeyword"/>
+      </item>
+      <item row="6" column="1" colspan="3">
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string>Keyword</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="2" colspan="2">
+       <widget class="QLineEdit" name="opLineSource"/>
       </item>
      </layout>
     </widget>
-   </item>
-   <item row="0" column="1">
-    <layout class="QHBoxLayout" name="layoutHButton">
-     <property name="spacing">
-      <number>1</number>
-     </property>
-     <item>
-      <spacer name="opSpacerH">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QPushButton" name="opButtonClear">
-       <property name="text">
-        <string>Clear</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="opButtonClose">
-       <property name="text">
-        <string>Close</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="opButtonUpdate">
-       <property name="text">
-        <string>Update</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="opButtonInsert">
-       <property name="text">
-        <string>Insert</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
    </item>
    <item row="0" column="0" rowspan="2">
     <widget class="QGroupBox" name="opGroupData">

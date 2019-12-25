@@ -265,21 +265,6 @@ void MainWindow::on_actionUpdate_triggered()
     iw_ptr->show();
 }
 
-void MainWindow::on_actionTips_triggered()
-{
-    QString msgTip = QString("No tip");
-    m_sql = QString("select tip from data where id = %1").arg(currentId);
-    db_ptr->ptr_query->prepare(m_sql);
-    if(db_ptr->ptr_query->exec()){
-        while(db_ptr->ptr_query->next()){
-            msgTip = db_ptr->ptr_query->value(0).toString();
-        }
-    }
-
-    m_webViewCtx += "<br><h2>Tips</h2><h3>"+msgTip+"</h3>";
-    ui->webView->setHtml(m_webViewCtx);
-}
-
 void MainWindow::on_actionAnswer_triggered()
 {
     QString msgA = QString("No answer");

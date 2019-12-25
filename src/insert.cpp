@@ -43,13 +43,17 @@ void Insert::operation(int id)
     this->setStyleSheet(loadTheme(theme));
     ui->opLineId->setText(QString::number(id));
 
+    dispalyDataById(id);
+}
+
+void Insert::dispalyDataById(int id)
+{
     m_sql = QString("select * from data where id= %1").arg(id);
     db_ptr->ptr_query->prepare(m_sql);
     if(db_ptr->ptr_query->exec()){
         while(db_ptr->ptr_query->next()){
             ui->opTextQ->setPlainText(db_ptr->ptr_query->value("question").toString());
             ui->opTextA->setPlainText(db_ptr->ptr_query->value("answer").toString());
-            ui->opPlainTips->setPlainText(db_ptr->ptr_query->value("tip").toString());
         }
     }
     else {
@@ -73,6 +77,16 @@ void Insert::operation(int id)
     }
 }
 
+void Insert::setLineId(int id)
+{
+    ui->opLineId->setText(QString::number(id));
+}
+
+int Insert::getLineId()
+{
+    return ui->opLineId->text().toInt();
+}
+
 void Insert::on_opButtonUpdate_clicked()
 {
     QString question = ui->opTextQ->toPlainText();
@@ -82,11 +96,10 @@ void Insert::on_opButtonUpdate_clicked()
     }
 
     m_sql.clear();
-    m_sql = QString("update data set question=:question,answer=:answer,tip=:tip where id=:id");
+    m_sql = QString("update data set question=:question,answer=:answer where id=:id");
     db_ptr->ptr_query->prepare(m_sql);
     db_ptr->ptr_query->bindValue(":question",ui->opTextQ->toPlainText());
     db_ptr->ptr_query->bindValue(":answer",ui->opTextA->toPlainText());
-    db_ptr->ptr_query->bindValue(":tip",ui->opPlainTips->toPlainText());
     db_ptr->ptr_query->bindValue(":id",ui->opLineId->text().toInt());
     if(db_ptr->ptr_query->exec()){
         qDebug()<<"Update data in data table";
@@ -128,13 +141,12 @@ void Insert::on_opButtonInsert_clicked()
     m_sql.clear();
     qDebug()<<"current max id is: "<<maxId;
 
-    m_sql=QString("insert into data values(:id,:question,:answer,:tip)");
+    m_sql=QString("insert into data values(:id,:question,:answer)");
     db_ptr->ptr_query->prepare(m_sql);
     db_ptr->ptr_query->bindValue(":id",++maxId);
     question ="<pre>"+ui->opTextQ->toPlainText()+"</pre>";
     db_ptr->ptr_query->bindValue(":question",question);
     db_ptr->ptr_query->bindValue(":answer","<pre>"+ui->opTextA->toPlainText()+"</pre>");
-    db_ptr->ptr_query->bindValue(":tip","<pre>"+ui->opPlainTips->toPlainText()+"</pre>");
     if(db_ptr->ptr_query->exec()){
         qDebug()<<"Inserted data into db";
     }
@@ -151,6 +163,7 @@ void Insert::on_opButtonInsert_clicked()
     db_ptr->ptr_query->bindValue(":source",ui->opLineSource->text());
     if(db_ptr->ptr_query->exec()){
         qDebug()<<"Inserted data into db";
+        ++maxId;
     }
 
     on_opButtonClear_clicked();
@@ -160,7 +173,6 @@ void Insert::on_opButtonClear_clicked()
 {
     ui->opTextA->clear();
     ui->opTextQ->clear();
-    ui->opPlainTips->clear();
 
     maxId = db_ptr->getMaxId("data");
     ui->opLineId->setText(QString::number(maxId));
@@ -171,4 +183,30 @@ void Insert::on_opButtonClear_clicked()
 void Insert::on_opButtonClose_clicked()
 {
     this->close();
+}
+
+void Insert::on_opButtonPrevious_clicked()
+{
+    currentId = getLineId();
+    if(currentId>=1){
+        dispalyDataById(--currentId);
+        setLineId(currentId);
+    }
+    else if(currentId<1){
+        dispalyDataById(maxId);
+        setLineId(maxId);
+    }
+}
+
+void Insert::on_opButtonNext_clicked()
+{
+    currentId = getLineId();
+    if(currentId==maxId){
+        dispalyDataById(1);
+        setLineId(1);
+    }
+    else if(currentId<maxId){
+        dispalyDataById(currentId++);
+        setLineId(currentId);
+    }
 }
